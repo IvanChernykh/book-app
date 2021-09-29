@@ -7,12 +7,6 @@ const BooksResults: React.FC = () => {
             <p className='text-center'>Found 460 results</p>
             <div className='row'>
                 <BookCard />
-                <BookCard />
-                <BookCard />
-                <BookCard />
-                <BookCard />
-                <BookCard />
-                <BookCard />
             </div>
         </div>
     )

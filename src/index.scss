@@ -3,9 +3,6 @@
 }
 html {
     font-size: 16px;
-    @media (max-width: 576px) {
-        font-size: 14px;
-    }
 }
 body {
     margin: 0;
@@ -31,23 +28,23 @@ code {
     h1 {
         margin-bottom: 1rem;
     }
-    .search {
-        max-width: 700px;
-        margin: 0 auto;
-        div {
-            margin-bottom: 1rem;
-        }
-        input {
-            border: none;
-            outline: none;
-            padding: 0.4rem;
-        }
-    }
 }
-.search-form {
-    display: flex;
-    input {
+#search-form {
+    max-width: 740px;
+    margin: 0 auto;
+    & > div {
+        display: flex;
+        margin-bottom: 1rem;
+        justify-content: space-between;
+    }
+    input,
+    select {
         width: 80%;
+        border: none;
+        outline: none;
+    }
+    input {
+        padding: 0.4rem;
     }
     button {
         padding: 0;
@@ -55,6 +52,9 @@ code {
         border: none;
         outline: none;
         font-size: 1rem;
+    }
+    label {
+        margin-right: 1rem;
     }
 }
 //books results ------------------------------
@@ -68,4 +68,23 @@ code {
     background: #f6f6f6;
     margin-bottom: 2rem;
     padding: 1rem;
+}
+.book-card__img {
+    padding: 0 10px;
+    margin-bottom: 1rem;
+    img {
+        width: 100%;
+        min-height: 200px;
+        object-fit: cover;
+    }
+}
+.book-card_category {
+    font-size: 0.9rem;
+    text-decoration: underline;
+}
+//media ----------------------------------------
+@media (max-width: 576px) {
+    html {
+        font-size: 14px;
+    }
 }
