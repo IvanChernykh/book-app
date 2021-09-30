@@ -92,7 +92,7 @@ const searchReducer = (state = initialState, action: any): IState => {
                     title: item.volumeInfo.title,
                     authors: item.volumeInfo.authors,
                     category: item.volumeInfo.categories,
-                    description: item.description,
+                    description: item.volumeInfo.description,
                     imageUrl: item.volumeInfo.imageLinks?.thumbnail,
                     isOpen: false
                 }

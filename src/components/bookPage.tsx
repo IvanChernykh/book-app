@@ -8,13 +8,11 @@ const BookPage: React.FC<BookPageProps> = ({ book, setIsOpen }) => {
     return (
         <div className='book-page row'>
             <div className='col-sm-6 book-page__img-container'>
-                <div>
-                    <img alt={book.title} src={book.imageUrl} />
-                </div>
+                <img alt={book.title} src={book.imageUrl} />
             </div>
             <div className='col-sm-6 book-page_right'>
                 <div>
-                    <span className='category-text'>{book.category}</span>
+                    <span className='category-text d-block'>{book.category}</span>
                     <h2>{book.title}</h2>
                     <p>{book.authors?.join(', ')}</p>
                     <p>{book.description}</p>
