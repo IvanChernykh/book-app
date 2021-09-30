@@ -1,4 +1,5 @@
 import React from 'react'
+
 type BookCardProps = {
     book: any
     openHandler: (id: number) => void
@@ -13,7 +14,7 @@ const BookCard: React.FC<BookCardProps> = ({ book, openHandler }) => {
                 <div className='book-card__text'>
                     <p className='category-text'>{book.category?.[0] || 'All'}</p>
                     <h4>{book.title}</h4>
-                    <p>{book.authors?.join(', ') || ''}</p>
+                    <p className='authors'>{book.authors?.join(', ') || ''}</p>
                 </div>
             </div>
         </div>

@@ -32,6 +32,19 @@ button {
         background-color: transparent;
     }
 }
+.more-button {
+    margin-bottom: 4rem;
+}
+.preloader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    img {
+        max-width: 150px;
+        height: auto;
+    }
+}
 //header ---------------------------------
 .header {
     background: url("./images/book-bg.webp") no-repeat center center;
@@ -106,8 +119,7 @@ button {
     }
 }
 .book-card__text {
-    h4,
-    p {
+    h4 {
         max-height: 3.8rem;
         overflow: hidden;
         text-overflow: ellipsis;

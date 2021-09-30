@@ -1,59 +1,12 @@
 import api from "../../api/api"
-import { ThunkAction } from "redux-thunk"
+import {
+    actionsTypes, FILTER_BY_CATEGORY, getCategoryType, getMoreResultsType, getSearchDataType, GET_MORE_RESULTS,
+    GET_SEARCH_DATA, IBook, IState, setCurrentSearchType, setIsOpenType, SET_CURRENT_SEARCH, SET_IS_OPEN,
+    ThunkType, toggleIsFetchingType, TOGGLE_IS_FETCHING
+} from "./searchResucerTypes"
 
-const GET_SEARCH_DATA: string = 'GET_SEARCH_DATA'
-const GET_MORE_RESULTS: string = 'GET_MORE_RESULTS'
-const SET_CURRENT_SEARCH: string = 'GET_CURRENT_SEARCH'
-const SET_IS_OPEN: string = 'SET_ISOPEN'
-const FILTER_BY_CATEGORY: string = 'GET_CATEGORY'
-
-export interface IBook {
-    title: string
-    authors: string[]
-    id: string
-    category: string[]
-    description: string
-    imageUrl: string
-    isOpen: boolean
-}
-export interface IState {
-    totalItems: number
-    bookItems: IBook[]
-    currentSearch: {
-        value: string
-        category: string
-        sort: string
-        step: number
-        startIndex: number
-    }
-}
-type getCategoryType = {
-    type: typeof FILTER_BY_CATEGORY
-    payload: { category: string }
-}
-type setIsOpenType = {
-    type: typeof SET_IS_OPEN,
-    payload: { id: number }
-}
-type getSearchDataType = {
-    type: typeof GET_SEARCH_DATA
-    payload: any
-}
-type getMoreResultsType = {
-    type: typeof GET_MORE_RESULTS
-    payload: any
-}
-type setCurrentSearchType = {
-    type: typeof SET_CURRENT_SEARCH
-    payload: {
-        value: string
-        category: string
-        sort: string
-    }
-}
-type actionsTypes = getMoreResultsType | setCurrentSearchType | getSearchDataType | setIsOpenType | getCategoryType
-type ThunkType = ThunkAction<void, IState, unknown, actionsTypes>
 const initialState: IState = {
+    isFetching: false,
     totalItems: 0,
     bookItems: [],
     currentSearch: {
@@ -66,6 +19,8 @@ const initialState: IState = {
 }
 const searchReducer = (state = initialState, action: actionsTypes): IState => {
     switch (action.type) {
+        case TOGGLE_IS_FETCHING:
+            return { ...state, isFetching: action.payload.isFetching }
         case SET_IS_OPEN:
             const books = state.bookItems.map(book => {
                 if (book.id === action.payload.id) book.isOpen = !book.isOpen
@@ -130,6 +85,7 @@ const searchReducer = (state = initialState, action: actionsTypes): IState => {
 
 export const setIsOpen = (id: number): setIsOpenType => ({ type: SET_IS_OPEN, payload: { id } })
 
+const toggleIsFetching = (isFetching: boolean): toggleIsFetchingType => ({ type: TOGGLE_IS_FETCHING, payload: { isFetching } })
 const filterByCategory = (category: string): getCategoryType => ({ type: FILTER_BY_CATEGORY, payload: { category } })
 const getSearchData = (payload: any): getSearchDataType => ({ type: GET_SEARCH_DATA, payload })
 const getMoreResults = (payload: any): getMoreResultsType => ({ type: GET_MORE_RESULTS, payload })
@@ -137,15 +93,19 @@ const setCurrentSearch = (value: string, category: string, sort: string): setCur
     { type: SET_CURRENT_SEARCH, payload: { value, category, sort } })
 
 export const getSearchDataThunk = (value: string, startIndex: number, sort: string, category: string): ThunkType => async dispatch => {
+    dispatch(toggleIsFetching(true))
     dispatch(setCurrentSearch(value, category, sort))
     const response = await api.search(value, startIndex, sort)
     dispatch(getSearchData(response))
     dispatch(filterByCategory(category))
+    dispatch(toggleIsFetching(false))
 }
 export const getMoreResultsThunk = (data: IState): ThunkType => async dispatch => {
+    dispatch(toggleIsFetching(true))
     dispatch(setCurrentSearch(data.currentSearch.value, data.currentSearch.category, data.currentSearch.sort))
     const response = await api.search(data.currentSearch.value, data.currentSearch.startIndex, data.currentSearch.sort)
     dispatch(getMoreResults(response))
     dispatch(filterByCategory(data.currentSearch.category))
+    dispatch(toggleIsFetching(false))
 }
 export default searchReducer
