@@ -38,7 +38,7 @@ export type getCategoryType = {
 }
 export type setIsOpenType = {
     type: typeof SET_IS_OPEN,
-    payload: { id: number }
+    payload: { id: string }
 }
 export type getSearchDataType = {
     type: typeof GET_SEARCH_DATA

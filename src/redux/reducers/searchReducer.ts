@@ -63,7 +63,7 @@ const searchReducer = (state = initialState, action: actionsTypes): IState => {
                     id: item.id,
                     title: item.volumeInfo.title,
                     authors: item.volumeInfo.authors,
-                    category: item.volumeInfo.categories || 'all',
+                    category: item.volumeInfo.categories,
                     description: item.description,
                     imageUrl: item.volumeInfo.imageLinks?.thumbnail,
                     isOpen: false
@@ -83,7 +83,7 @@ const searchReducer = (state = initialState, action: actionsTypes): IState => {
     }
 }
 
-export const setIsOpen = (id: number): setIsOpenType => ({ type: SET_IS_OPEN, payload: { id } })
+export const setIsOpen = (id: string): setIsOpenType => ({ type: SET_IS_OPEN, payload: { id } })
 
 const toggleIsFetching = (isFetching: boolean): toggleIsFetchingType => ({ type: TOGGLE_IS_FETCHING, payload: { isFetching } })
 const filterByCategory = (category: string): getCategoryType => ({ type: FILTER_BY_CATEGORY, payload: { category } })

@@ -1,8 +1,9 @@
 import React from 'react'
+import { IBook } from '../redux/reducers/searchResucerTypes'
 
 type BookPageProps = {
-    book: any
-    setIsOpen: (id: number) => void
+    book: IBook
+    setIsOpen: (id: string) => void
 }
 const BookPage: React.FC<BookPageProps> = ({ book, setIsOpen }) => {
     return (

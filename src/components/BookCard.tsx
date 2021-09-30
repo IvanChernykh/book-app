@@ -1,8 +1,9 @@
 import React from 'react'
+import { IBook } from '../redux/reducers/searchResucerTypes'
 
 type BookCardProps = {
-    book: any
-    openHandler: (id: number) => void
+    book: IBook
+    openHandler: (id: string) => void
 }
 const BookCard: React.FC<BookCardProps> = ({ book, openHandler }) => {
     return (

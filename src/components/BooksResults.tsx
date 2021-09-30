@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { getMoreResultsThunk, setIsOpen } from '../redux/reducers/searchReducer'
 import { IBook, IState } from '../redux/reducers/searchResucerTypes'
+import { state } from '../redux/store'
 import BookCard from './BookCard'
 import BookPage from './BookPage'
 import Preloader from './Preloader'
@@ -9,11 +10,11 @@ import Preloader from './Preloader'
 type BooksResultsProps = {
     books: IState
     getMoreResultsThunk: (data: any) => void
-    setIsOpen: (id: number) => void
+    setIsOpen: (id: string) => void
 }
 const BooksResults: React.FC<BooksResultsProps> = ({ books, getMoreResultsThunk, setIsOpen }) => {
-    const bookIsOpen: boolean = books.bookItems.some((book: IBook) => book.isOpen === true)
-    return bookIsOpen
+    const isBookOpen: boolean = books.bookItems.some((book: IBook) => book.isOpen === true)
+    return isBookOpen
         ? <BookPage book={books.bookItems.filter((book: IBook) => book.isOpen === true)[0]} setIsOpen={setIsOpen} />
         : (
             <div className='container books-results'>
@@ -37,6 +38,6 @@ const BooksResults: React.FC<BooksResultsProps> = ({ books, getMoreResultsThunk,
         )
 }
 
-const mapStateToProps = (state: any) => ({ books: state.searchData })
+const mapStateToProps = (state: state) => ({ books: state.searchData })
 
 export default connect(mapStateToProps, { getMoreResultsThunk, setIsOpen })(BooksResults)

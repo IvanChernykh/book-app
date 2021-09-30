@@ -10,6 +10,7 @@ const Header: React.FC<headerProps> = ({ getSearchDataThunk }) => {
     const ref = useRef<HTMLInputElement>(null)
     const [sort, setSort] = useState<string>('relevance')
     const [category, setCategory] = useState<string>('all')
+
     const submitHandler = (e: React.FormEvent): void => {
         e.preventDefault()
         getSearchDataThunk(ref.current!.value.trim(), 0, sort, category)
@@ -26,16 +27,16 @@ const Header: React.FC<headerProps> = ({ getSearchDataThunk }) => {
                         <button type='submit' >Search</button>
                     </div>
                     <div className='col-md-6'>
-                        <label htmlFor='sort'>Sort By</label>
-                        <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSort(e.target.value)} id='sort'>
+                        <label >Sort By</label>
+                        <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setSort(e.target.value)} >
                             <option value='relevance'>Relevance</option>
                             <option value='newest'>Newest</option>
                         </select>
                     </div>
                     <div className='col-md-6'>
-                        <label htmlFor='category'>Categories</label>
-                        <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCategory(e.target.value)} id='categories'>
-                            {categories.map(c => <option key={c} value={c}>{c}</option>)}
+                        <label >Categories</label>
+                        <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCategory(e.target.value)} >
+                            {categories.map((c: string) => <option key={c} value={c}>{c}</option>)}
                         </select>
                     </div>
                 </form>

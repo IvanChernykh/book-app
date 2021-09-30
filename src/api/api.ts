@@ -2,7 +2,7 @@ import axios from "axios"
 
 interface IApi {
     apiKey: string
-    search: (query: string, startIndex: number, sort: string) => void
+    search: (query: string, startIndex: number, sort: string) => Promise<void>
 }
 
 const api: IApi = {
