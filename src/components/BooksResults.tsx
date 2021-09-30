@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { getMoreResultsThunk, IBook, setIsOpen } from '../redux/reducers/searchReducer'
+import { getMoreResultsThunk, IBook, IState, setIsOpen } from '../redux/reducers/searchReducer'
 import BookCard from './BookCard'
 import BookPage from './BookPage'
 type BooksResultsProps = {
-    books: any
+    books: IState
     getMoreResultsThunk: (data: any) => void
     setIsOpen: (id: number) => void
 }
@@ -15,7 +15,7 @@ const BooksResults: React.FC<BooksResultsProps> = ({ books, getMoreResultsThunk,
             <div className='container books-results'>
                 {!!books.bookItems.length
                     && <>
-                        <p className='text-center'>Found {books.totalItems} results</p>
+                        <p className='text-center'>found {books.totalItems} results in all categories, showing results for the category {books.currentSearch.category}</p>
                         <div className='row book-results__items'>
                             {books.bookItems.map((item: IBook, i: number) => <BookCard key={i} book={item} openHandler={setIsOpen} />)}
                         </div>

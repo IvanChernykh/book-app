@@ -12,7 +12,7 @@ const BookPage: React.FC<BookPageProps> = ({ book, setIsOpen }) => {
             </div>
             <div className='col-sm-6 book-page_right'>
                 <div>
-                    <span className='category-text d-block'>{book.category}</span>
+                    <span className='category-text d-block'>{book.category?.join(', ')}</span>
                     <h2>{book.title}</h2>
                     <p>{book.authors?.join(', ')}</p>
                     <p>{book.description}</p>

@@ -7,6 +7,7 @@ body {
         "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
 }
 
 code {
@@ -45,7 +46,7 @@ button {
         margin-bottom: 1rem;
     }
 }
-#search-form {
+.search-form {
     max-width: 740px;
     margin: 0 auto;
     & > div {
@@ -151,6 +152,12 @@ button {
     }
     html {
         font-size: 14px;
+    }
+    .search-form {
+        max-width: 100%;
+        select {
+            width: 65%;
+        }
     }
     .book-card {
         padding: 0;

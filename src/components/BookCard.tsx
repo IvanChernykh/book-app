@@ -11,9 +11,9 @@ const BookCard: React.FC<BookCardProps> = ({ book, openHandler }) => {
                     <img alt={book.title} src={book.imageUrl} />
                 </div>
                 <div className='book-card__text'>
-                    <p className='category-text'>{book.category?.join(', ') || 'All'}</p>
+                    <p className='category-text'>{book.category?.[0] || 'All'}</p>
                     <h4>{book.title}</h4>
-                    <p>{book.authors?.join(', ') || 'No author'}</p>
+                    <p>{book.authors?.join(', ') || ''}</p>
                 </div>
             </div>
         </div>

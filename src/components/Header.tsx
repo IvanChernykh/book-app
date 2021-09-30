@@ -20,7 +20,7 @@ const Header: React.FC<headerProps> = ({ getSearchDataThunk }) => {
         <header className='header '>
             <div className='header__inner'>
                 <h1 className='text-center'>Search for books</h1>
-                <form id='search-form' className='row' onSubmit={(e) => submitHandler(e)}>
+                <form className='row search-form' onSubmit={(e: React.FormEvent) => submitHandler(e)}>
                     <div className='col-12 search-form__input'>
                         <input ref={ref} placeholder='Search for books' />
                         <button type='submit' >Search</button>
