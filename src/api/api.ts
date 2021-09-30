@@ -1,4 +1,5 @@
 import axios from "axios"
+import { debug } from "console"
 
 interface IApi {
     apiKey: string

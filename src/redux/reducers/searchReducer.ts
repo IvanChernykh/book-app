@@ -57,7 +57,6 @@ const initialState: IState = {
 const searchReducer = (state = initialState, action: any): IState => {
     switch (action.type) {
         case SET_CURRENT_SEARCH:
-            debugger
             const stepAndIndex = (state.currentSearch.value === action.value
                 && state.currentSearch.category === action.category
                 && state.currentSearch.sort === action.sort
@@ -66,7 +65,6 @@ const searchReducer = (state = initialState, action: any): IState => {
                 step: state.currentSearch.step += 1
             }
                 : { startIndex: 0, step: 1 }
-
             return {
                 ...state, currentSearch: {
                     value: action.value,
@@ -76,7 +74,7 @@ const searchReducer = (state = initialState, action: any): IState => {
                 }
             }
         case GET_SEARCH_DATA:
-            const bookItems = action.data.items ? action.data.items.map((item: any) => {
+            const bookItems = action.data.items.length ? action.data.items.map((item: any) => {
                 return {
                     id: item.id,
                     title: item.volumeInfo.title,
@@ -88,7 +86,7 @@ const searchReducer = (state = initialState, action: any): IState => {
             }) : []
             return { ...state, totalItems: action.data.totalItems, bookItems }
         case GET_MORE_RESULTS:
-            const newItems = action.data.items.map((item: any) => {
+            const newItems = action.data.items ? action.data.items.map((item: any) => {
                 return {
                     id: item.id,
                     title: item.volumeInfo.title,
@@ -97,7 +95,7 @@ const searchReducer = (state = initialState, action: any): IState => {
                     description: item.description,
                     imageUrl: item.volumeInfo.imageLinks?.thumbnail
                 }
-            })
+            }) : []
             return { ...state, bookItems: [...state.bookItems, ...newItems] }
         default:
             return state
