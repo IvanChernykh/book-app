@@ -1,6 +1,3 @@
-* {
-    box-sizing: border-box;
-}
 html {
     font-size: 16px;
 }
@@ -20,6 +17,19 @@ button {
     outline: none;
     font-size: 1rem;
     transition: 0.2s;
+}
+.books-button {
+    min-width: 80px;
+    padding: 5px 15px;
+    margin: 0 auto;
+    display: block;
+    border: 2px solid #222;
+    background-color: #222;
+    color: #fff;
+    &:hover {
+        color: #222;
+        background-color: transparent;
+    }
 }
 //header ---------------------------------
 .header {
@@ -66,7 +76,6 @@ button {
 }
 .book-results__items {
     align-items: stretch;
-    // padding: 0 10px;
 }
 .book-card {
     padding: 0 8px;
@@ -100,20 +109,35 @@ button {
         text-overflow: ellipsis;
     }
 }
-.book-card_category {
+.category-text {
     font-size: 0.9rem;
     text-decoration: underline;
 }
-.books-results__button {
-    padding: 5px 15px;
-    margin: 0 auto;
-    display: block;
-    border: 2px solid #222;
-    background-color: #222;
-    color: #fff;
-    &:hover {
-        color: #222;
-        background-color: transparent;
+
+//book page ------------------------------------
+.book-page_right {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .books-button {
+        margin: 0;
+    }
+}
+.book-page__img-container {
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #efefef;
+    div {
+        width: 210px;
+        height: 80%;
+    }
+    img {
+        object-fit: cover;
+        width: 100%;
+        max-height: 100%;
     }
 }
 //media ----------------------------------------
@@ -123,5 +147,11 @@ button {
     }
     .book-card {
         padding: 0;
+    }
+    .book-page__img-container {
+        height: 300px;
+        div {
+            width: 180px;
+        }
     }
 }

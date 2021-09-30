@@ -4,14 +4,16 @@ import api from "../../api/api"
 const GET_SEARCH_DATA: string = 'GET_SEARCH_DATA'
 const GET_MORE_RESULTS: string = 'GET_MORE_RESULTS'
 const SET_CURRENT_SEARCH: string = 'GET_CURRENT_SEARCH'
+const SET_IS_OPEN: string = 'SET_ISOPEN'
 
-interface IBook {
+export interface IBook {
     title: string
     authors: string[]
     id: string
     category: string[]
     description: string
     imageUrl: string
+    isOpen: boolean
 }
 interface IState {
     totalItems: number
@@ -23,6 +25,10 @@ interface IState {
         step: number
         startIndex: number
     }
+}
+type setIsOpenType = {
+    type: typeof SET_IS_OPEN,
+    id: number
 }
 type getSearchDataType = {
     type: typeof GET_SEARCH_DATA
@@ -39,7 +45,7 @@ type setCurrentSearchType = {
     sort: string
     data?: any
 }
-type actionsTypes = getMoreResultsType | setCurrentSearchType | getSearchDataType
+type actionsTypes = getMoreResultsType | setCurrentSearchType | getSearchDataType | setIsOpenType
 type ThunkType = ThunkAction<void, IState, unknown, actionsTypes>
 
 const initialState: IState = {
@@ -56,6 +62,12 @@ const initialState: IState = {
 
 const searchReducer = (state = initialState, action: any): IState => {
     switch (action.type) {
+        case SET_IS_OPEN:
+            const books = state.bookItems.map(book => {
+                if (book.id === action.id) book.isOpen = !book.isOpen
+                return book
+            })
+            return { ...state, bookItems: books }
         case SET_CURRENT_SEARCH:
             const stepAndIndex = (state.currentSearch.value === action.value
                 && state.currentSearch.category === action.category
@@ -81,7 +93,8 @@ const searchReducer = (state = initialState, action: any): IState => {
                     authors: item.volumeInfo.authors,
                     category: item.volumeInfo.categories,
                     description: item.description,
-                    imageUrl: item.volumeInfo.imageLinks?.thumbnail
+                    imageUrl: item.volumeInfo.imageLinks?.thumbnail,
+                    isOpen: false
                 }
             }) : []
             return { ...state, totalItems: action.data.totalItems, bookItems }
@@ -93,7 +106,8 @@ const searchReducer = (state = initialState, action: any): IState => {
                     authors: item.volumeInfo.authors,
                     category: item.volumeInfo.categories,
                     description: item.description,
-                    imageUrl: item.volumeInfo.imageLinks?.thumbnail
+                    imageUrl: item.volumeInfo.imageLinks?.thumbnail,
+                    isOpen: false
                 }
             }) : []
             return { ...state, bookItems: [...state.bookItems, ...newItems] }
@@ -102,6 +116,7 @@ const searchReducer = (state = initialState, action: any): IState => {
     }
 }
 
+export const setIsOpen = (id: number): setIsOpenType => ({ type: SET_IS_OPEN, id })
 const getSearchData = (data: any): getSearchDataType => ({ type: GET_SEARCH_DATA, data })
 const getMoreResults = (data: any): getMoreResultsType => ({ type: GET_MORE_RESULTS, data })
 const setCurrentSearch = (value: string, category: string, sort: string): setCurrentSearchType => ({ type: SET_CURRENT_SEARCH, value, category, sort })
