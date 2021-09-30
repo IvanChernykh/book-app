@@ -1,6 +1,7 @@
 {
   "name": "book-app",
   "version": "0.1.0",
+  "homepage": "https://ivanchernykh.github.io/book-app/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
