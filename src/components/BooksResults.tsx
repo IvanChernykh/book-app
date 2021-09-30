@@ -1,26 +1,28 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import BookCard from './common/BookCard'
+import { getMoreResultsThunk } from '../redux/reducers/searchReducer'
+import BookCard from './BookCard'
 type BooksResultsProps = {
-    booksData: any
+    books: any
+    getMoreResultsThunk: (data: any) => void
 }
-const BooksResults: React.FC<BooksResultsProps> = ({ booksData }) => {
+const BooksResults: React.FC<BooksResultsProps> = ({ books, getMoreResultsThunk }) => {
     return (
         <div className='container books-results'>
-            {!!booksData.bookItems.length
+            {!!books.bookItems.length
                 && <>
-                    <p className='text-center'>Found {booksData.totalItems} results</p>
+                    <p className='text-center'>Found {books.totalItems} results</p>
                     <div className='row book-results__items'>
-                        {booksData.bookItems.map((item: any) => {
-                            return <BookCard key={item.id} book={item} />
+                        {books.bookItems.map((item: any, i: number) => {
+                            return <BookCard key={i} book={item} />
                         })}
                     </div>
-                    <button className='books-results__button'>Load more</button>
+                    <button onClick={() => getMoreResultsThunk(books)} className='books-results__button'> Load more</button>
                 </>
             }
         </div>
     )
 }
-const mapStateToProps = (state: any) => ({ booksData: state.searchData })
+const mapStateToProps = (state: any) => ({ books: state.searchData })
 
-export default connect(mapStateToProps, {})(BooksResults)
+export default connect(mapStateToProps, { getMoreResultsThunk })(BooksResults)

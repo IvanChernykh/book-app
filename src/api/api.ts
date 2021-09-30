@@ -7,8 +7,8 @@ interface IApi {
 
 const api: IApi = {
     apiKey: 'AIzaSyC6jeisnRdSmhK6q3VAMGtuDmf3Kaogv-M',
-    search: (query, startIndex = 0, sort) => {
-        return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}&key=${api.apiKey}&maxResults=30&start-index=${startIndex}&orderBy${sort}`)
+    search: (query, startIndex, sort) => {
+        return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=30&startIndex=${startIndex}&orderBy=${sort}&key=${api.apiKey}`)
             .then(res => res.data)
     },
 }

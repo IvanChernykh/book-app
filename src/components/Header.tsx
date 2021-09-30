@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { getSearchDataThunk } from '../redux/reducers/searchReducer'
 
 type headerProps = {
-    getSearchDataThunk: (value: string, startIndex: number, sort: string) => void
+    getSearchDataThunk: (value: string, startIndex: number, sort: string, category: string) => void
 }
 
 const Header: React.FC<headerProps> = ({ getSearchDataThunk }) => {
@@ -12,7 +12,7 @@ const Header: React.FC<headerProps> = ({ getSearchDataThunk }) => {
     const [category, setCategory] = useState<string>('all')
     const submitHandler = (e: React.FormEvent): void => {
         e.preventDefault()
-        getSearchDataThunk(ref.current!.value.trim(), 0, sort)
+        getSearchDataThunk(ref.current!.value.trim(), 0, sort, category)
         ref.current!.value = ''
     }
     const categories: string[] = ['all', 'art', 'biography', 'computers', 'history', 'medical', 'poetry']
