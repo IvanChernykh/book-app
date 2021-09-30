@@ -1,13 +1,18 @@
 import React, { useRef, useState } from 'react'
-import api from '../api/api'
+import { connect } from 'react-redux'
+import { getSearchDataThunk } from '../redux/reducers/searchReducer'
 
-const Header: React.FC = () => {
+type headerProps = {
+    getSearchDataThunk: (value: string, startIndex: number, sort: string) => void
+}
+
+const Header: React.FC<headerProps> = ({ getSearchDataThunk }) => {
     const ref = useRef<HTMLInputElement>(null)
     const [sort, setSort] = useState<string>('relevance')
     const [category, setCategory] = useState<string>('all')
     const submitHandler = (e: React.FormEvent): void => {
         e.preventDefault()
-        api.search(ref.current!.value.trim(), 0, sort)
+        getSearchDataThunk(ref.current!.value.trim(), 0, sort)
         ref.current!.value = ''
     }
     const categories: string[] = ['all', 'art', 'biography', 'computers', 'history', 'medical', 'poetry']
@@ -38,4 +43,5 @@ const Header: React.FC = () => {
         </header>
     )
 }
-export default Header
+
+export default connect(null, { getSearchDataThunk })(Header)
