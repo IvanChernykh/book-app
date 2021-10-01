@@ -5,6 +5,7 @@ import { IBook, IState } from '../redux/reducers/searchResucerTypes'
 import { state } from '../redux/store'
 import BookCard from './BookCard'
 import BookPage from './BookPage'
+import Button from './common/Button'
 import Preloader from './Preloader'
 
 type BooksResultsProps = {
@@ -28,9 +29,7 @@ const BooksResults: React.FC<BooksResultsProps> = ({ books, getMoreResultsThunk,
                     </div>
                     {books.totalItems - books.currentSearch.startIndex <= 30
                         ? null
-                        : books.isFetching.loadMore
-                            ? <Preloader />
-                            : <button onClick={() => getMoreResultsThunk(books)} className='books-button more-button'> Load more</button>}
+                        : <Button isFetching={books.isFetching.loadMore} onClickHandler={getMoreResultsThunk} books={books} />}
                 </>
             }
         </div>
