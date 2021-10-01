@@ -17,9 +17,12 @@ export interface IBook {
     isOpen: boolean
 }
 export interface IState {
-    isFetching: boolean
     totalItems: number
     bookItems: IBook[]
+    isFetching: {
+        search: boolean
+        loadMore: boolean
+    }
     currentSearch: {
         value: string
         category: string
@@ -30,7 +33,10 @@ export interface IState {
 }
 export type toggleIsFetchingType = {
     type: typeof TOGGLE_IS_FETCHING
-    payload: { isFetching: boolean }
+    payload: {
+        search: boolean
+        loadMore: boolean
+    }
 }
 export type getCategoryType = {
     type: typeof FILTER_BY_CATEGORY

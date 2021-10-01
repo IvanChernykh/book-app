@@ -6,7 +6,10 @@ import {
 } from "./searchResucerTypes"
 
 const initialState: IState = {
-    isFetching: false,
+    isFetching: {
+        search: false,
+        loadMore: false
+    },
     totalItems: 0,
     bookItems: [],
     currentSearch: {
@@ -20,7 +23,12 @@ const initialState: IState = {
 const searchReducer = (state = initialState, action: actionsTypes): IState => {
     switch (action.type) {
         case TOGGLE_IS_FETCHING:
-            return { ...state, isFetching: action.payload.isFetching }
+            return {
+                ...state, isFetching: {
+                    search: action.payload.search,
+                    loadMore: action.payload.loadMore
+                }
+            }
         case SET_IS_OPEN:
             const books = state.bookItems.map(book => {
                 if (book.id === action.payload.id) book.isOpen = !book.isOpen
@@ -85,7 +93,12 @@ const searchReducer = (state = initialState, action: actionsTypes): IState => {
 
 export const setIsOpen = (id: string): setIsOpenType => ({ type: SET_IS_OPEN, payload: { id } })
 
-const toggleIsFetching = (isFetching: boolean): toggleIsFetchingType => ({ type: TOGGLE_IS_FETCHING, payload: { isFetching } })
+const toggleIsFetching = (search: boolean, loadMore: boolean): toggleIsFetchingType => ({
+    type: TOGGLE_IS_FETCHING, payload: {
+        search,
+        loadMore
+    }
+})
 const filterByCategory = (category: string): getCategoryType => ({ type: FILTER_BY_CATEGORY, payload: { category } })
 const getSearchData = (payload: any): getSearchDataType => ({ type: GET_SEARCH_DATA, payload })
 const getMoreResults = (payload: any): getMoreResultsType => ({ type: GET_MORE_RESULTS, payload })
@@ -93,19 +106,19 @@ const setCurrentSearch = (value: string, category: string, sort: string): setCur
     { type: SET_CURRENT_SEARCH, payload: { value, category, sort } })
 
 export const getSearchDataThunk = (value: string, startIndex: number, sort: string, category: string): ThunkType => async dispatch => {
-    dispatch(toggleIsFetching(true))
+    dispatch(toggleIsFetching(true, false))
     dispatch(setCurrentSearch(value, category, sort))
     const response = await api.search(value, startIndex, sort)
     dispatch(getSearchData(response))
     dispatch(filterByCategory(category))
-    dispatch(toggleIsFetching(false))
+    dispatch(toggleIsFetching(false, false))
 }
 export const getMoreResultsThunk = (data: IState): ThunkType => async dispatch => {
-    dispatch(toggleIsFetching(true))
+    dispatch(toggleIsFetching(false, true))
     dispatch(setCurrentSearch(data.currentSearch.value, data.currentSearch.category, data.currentSearch.sort))
     const response = await api.search(data.currentSearch.value, data.currentSearch.startIndex, data.currentSearch.sort)
     dispatch(getMoreResults(response))
     dispatch(filterByCategory(data.currentSearch.category))
-    dispatch(toggleIsFetching(false))
+    dispatch(toggleIsFetching(false, false))
 }
 export default searchReducer
