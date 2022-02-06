@@ -34,7 +34,6 @@ const BooksResults: React.FC<BooksResultsProps> = ({ books, getMoreResultsThunk,
             }
         </div>
     )
-
     return isBookOpen ? bookPage : results
 }
 

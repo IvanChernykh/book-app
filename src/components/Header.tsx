@@ -8,6 +8,7 @@ type headerProps = {
 
 const Header: React.FC<headerProps> = ({ getSearchDataThunk }) => {
     const ref = useRef<HTMLInputElement>(null)
+
     const [sort, setSort] = useState<string>('relevance')
     const [category, setCategory] = useState<string>('all')
 
