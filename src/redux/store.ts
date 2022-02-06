@@ -1,9 +1,12 @@
 import { combineReducers, createStore } from "redux"
+import reducer from "./reducers/reducer"
 
 const rootReducer = combineReducers({
-
+    search: reducer
 })
 
-const store = createStore(rootReducer)
+export const store = createStore(rootReducer)
 
-export default store
+
+type RootReducer = typeof rootReducer
+export type TState = ReturnType<RootReducer>
