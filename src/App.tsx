@@ -1,10 +1,11 @@
 import React from 'react'
+import SearchBlock from './components/search/SearchBlock'
 
 const App: React.FC = () => {
     return (
-        <div className="App">
-            search book app
-        </div>
+        <>
+            <SearchBlock />
+        </>
     )
 }
 
