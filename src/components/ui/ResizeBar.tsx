@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 
-import classNames from './_ResizeBar.module.scss'
+import styles from './_ResizeBar.module.scss'
 
 type Props = {
-    setWidth: React.Dispatch<React.SetStateAction<string>>
+    setWidth: React.Dispatch<React.SetStateAction<number>>
 }
 
 const resizeStyles = { borderRight: '1px solid #777' }
@@ -25,7 +25,7 @@ const ResizeBar: React.FC<Props> = ({ setWidth }) => {
 
     const resize = (e: MouseEvent) => {
         setStyle(resizeStyles)
-        setWidth(e.clientX.toString())
+        setWidth(e.clientX)
     }
     const stopResize = () => {
         setStyle({})
@@ -34,7 +34,7 @@ const ResizeBar: React.FC<Props> = ({ setWidth }) => {
     const mouseDownHandler = (e: React.MouseEvent) => setOnResize(true)
 
     return (
-        <div className={classNames.resize_bar} onMouseDown={mouseDownHandler} style={style} />
+        <div className={styles.resize_bar} onMouseDown={mouseDownHandler} style={style} />
     )
 }
 
