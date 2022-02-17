@@ -1,7 +1,7 @@
 import { ThunkAction } from "redux-thunk"
 
 import { api } from "../../api/api"
-import { ISearchForm } from "../../components/search/SearchForm"
+import { ISearchForm } from "../../components/main/search/SearchForm"
 
 import { ActionTypes } from "./types/actionTypes"
 import { IState } from "./types/stateTypes"

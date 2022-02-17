@@ -6,6 +6,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
 
 import MenuItem from '../ui/MenuItem'
+import { routes } from '../../config'
 
 
 
@@ -17,9 +18,6 @@ export interface IMenuItem {
 }
 
 const styles = {
-    link: {
-        textDecoration: 'none'
-    },
     icon: {
         width: '30px',
         height: 'auto'
@@ -27,28 +25,25 @@ const styles = {
     box: {
         width: '100%'
     },
-    text: {
-        color: '#eee',
-    }
 }
 
 const menuItems: IMenuItem[] = [
     {
         text: 'Головна',
         icon: <HomeRoundedIcon sx={styles.icon} />,
-        path: '/',
+        path: routes.home,
         isActive: false
     },
     {
         text: 'Пошук',
         icon: <SearchIcon sx={styles.icon} />,
-        path: '/search',
+        path: routes.search,
         isActive: false
     },
     {
         text: 'Обране',
         icon: <FavoriteBorderIcon sx={styles.icon} />,
-        path: '/favorites',
+        path: routes.favorites,
         isActive: false
     }
 ]

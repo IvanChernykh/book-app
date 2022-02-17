@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { Button, Paper, TextField } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
 import { useForm } from 'react-hook-form'
 import { connect } from 'react-redux'
+import { Button, Paper, TextField } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
 
-import { getBooksBySearch } from '../../redux/reducers/thunks'
+
+import { getBooksBySearch } from '../../../redux/reducers/thunks'
+import TextInput from '../../ui/TextInput'
 
 type Props = {
     getBooksBySearch: (data: any) => any
@@ -51,14 +53,14 @@ const SearchForm: React.FC<Props> = ({ getBooksBySearch }) => {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <Paper sx={styles.paper} >
-                <TextField {...register('query')} placeholder="Search for books..." sx={styles.input} onInput={inputHandler} />
-                {hasValue && (
-                    <Button sx={styles.clearButton} onClick={clearInputHandler}>
-                        <CloseIcon />
-                    </Button>
-                )}
-            </Paper>
+            <TextInput
+                name="query"
+                hasValue={hasValue}
+                placeholder="Шукайте книги..."
+                register={register}
+                clearInputHandler={clearInputHandler}
+                inputHandler={inputHandler}
+            />
         </form>
     )
 }

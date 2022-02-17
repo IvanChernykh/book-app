@@ -1,22 +1,20 @@
-import { Box } from '@mui/material'
 import React from 'react'
-import Menu from '../left/Menu'
+import { Box } from '@mui/material'
+import { Route, Routes } from 'react-router-dom'
 
+import SearchPage from './search/SearchPage'
 
-const styles = {
-    box: {
-        display: 'grid',
-        gridTemplateColumns: 'auto 1fr',
-        height: '100vh',
-        overflow: 'hidden',
-    }
-}
+import { routes } from '../../config'
+
 
 const Main: React.FC = () => {
     return (
-        <Box sx={styles.box}>
-            <Menu />
-            <div>right</div>
+        <Box>
+            <Routes>
+                <Route path={routes.home} element={<>home</>} />
+                <Route path={routes.search} element={<SearchPage />} />
+                <Route path={routes.favorites} element={<>favorites</>} />
+            </Routes>
         </Box>
     )
 }

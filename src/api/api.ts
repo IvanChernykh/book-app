@@ -1,6 +1,6 @@
 import axios from "axios"
 
-import { ISearchForm } from "../components/search/SearchForm"
+import { ISearchForm } from "../components/main/search/SearchForm"
 import { API_KEY } from "../config"
 
 //get books:
