@@ -6,6 +6,7 @@ import Logo from './Logo'
 
 const styles = {
     container: {
+        position: 'relative',
         background: '#000',
         height: '100%',
         display: 'flex',
@@ -16,10 +17,11 @@ const styles = {
     }
 }
 
-const WIDTH = 200
+const BLOCK_WIDTH = 200
+const BLOCK_MIN_WIDTH = 160
 
 const Menu: React.FC = () => {
-    const [width, setWidth] = useState(WIDTH)
+    const [width, setWidth] = useState(BLOCK_WIDTH)
 
     return (
         <Box sx={{ ...styles.container, width: `${width}px` }} component="nav">
@@ -27,7 +29,7 @@ const Menu: React.FC = () => {
                 <Logo />
                 <MenuList />
             </Box>
-            <ResizeBar setWidth={setWidth} />
+            <ResizeBar setWidth={setWidth} minWidth={BLOCK_MIN_WIDTH} />
         </Box>
     )
 }

@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react'
 import styles from './_ResizeBar.module.scss'
 
 type Props = {
+    minWidth: number
     setWidth: React.Dispatch<React.SetStateAction<number>>
 }
 
 const resizeStyles = { borderRight: '1px solid #777' }
 
-const ResizeBar: React.FC<Props> = ({ setWidth }) => {
+const ResizeBar: React.FC<Props> = ({ setWidth, minWidth }) => {
     const [onResize, setOnResize] = useState(false)
     const [style, setStyle] = useState({})
 
@@ -25,7 +26,9 @@ const ResizeBar: React.FC<Props> = ({ setWidth }) => {
 
     const resize = (e: MouseEvent) => {
         setStyle(resizeStyles)
-        setWidth(e.clientX)
+
+        if (e.clientX <= minWidth) setWidth(minWidth)
+        if (e.clientX > minWidth) setWidth(e.clientX)
     }
     const stopResize = () => {
         setStyle({})
