@@ -1,10 +1,12 @@
 import React from 'react'
-import SearchBlock from './components/search/SearchBlock'
+
+import Main from './components/main/Main'
+
 
 const App: React.FC = () => {
     return (
         <>
-            <SearchBlock />
+            <Main />
         </>
     )
 }

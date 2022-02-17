@@ -1,0 +1,13 @@
+.resize_bar {
+    height: 100%;
+    width: 8px;
+    display: flex;
+    justify-content: center;
+    background-color: transparent;
+    border-right: 1px solid transparent;
+    transition: border-right 0.1s;
+    cursor: col-resize;
+    &:hover {
+        border-right: 1px solid #777;
+    }
+}

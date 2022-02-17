@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 
 import { store } from './redux/store'
-import theme from './muiConfit'
+import theme from './muiConfig'
 import './scss/index.scss'
 
 
