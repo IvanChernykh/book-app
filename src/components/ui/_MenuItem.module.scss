@@ -9,11 +9,11 @@
     color: $gray;
     transition: color 0.2s;
     &:hover {
-        color: #fff;
+        color: $textMain;
     }
 }
 .active {
-    color: #fff;
+    color: $textMain;
 }
 .text {
     font-size: 1.2rem;

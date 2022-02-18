@@ -1,0 +1,46 @@
+@import "../../scss/colors.scss";
+
+.container {
+    height: 330px;
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: $backgroundLight;
+    transition: background-color 0.2s;
+    cursor: pointer;
+    &:hover {
+        background-color: lighten($backgroundLight, 5);
+    }
+}
+.img_container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+.img_inner {
+    background-color: #333;
+    max-width: 300px;
+    height: 200px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+.img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.title {
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+}
+.authors {
+    font-size: 0.9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: $grayLight;
+}

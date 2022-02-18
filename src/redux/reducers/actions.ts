@@ -1,3 +1,4 @@
 export const actions = {
-
+    CLEAR_SEARCH_RESULTS: 'CLEAR_SEARCH_RESULTS',
+    SET_SEARCH_RESULTS: 'SET_SEARCH_RESULTS'
 } as const

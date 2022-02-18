@@ -11,4 +11,7 @@ export const store = createStore(rootReducer, applyMiddleware(thunk))
 
 
 type RootReducer = typeof rootReducer
-export type TState = ReturnType<RootReducer>
+export type TStore = ReturnType<RootReducer>
+
+//@ts-ignore
+window.store = store

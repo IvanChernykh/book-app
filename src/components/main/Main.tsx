@@ -9,7 +9,7 @@ import { routes } from '../../config'
 
 const Main: React.FC = () => {
     return (
-        <Box pl={2} pr={2}>
+        <Box pl={2} pr={2} sx={{ overflow: 'auto' }}>
             <Routes>
                 <Route path={routes.home} element={<>home</>} />
                 <Route path={routes.search} element={<SearchPage />} />

@@ -15,6 +15,7 @@ export interface ISearchForm {
     sortBy: string
 }
 type TFormFileds = keyof ISearchForm
+
 type Props = {
     getBooksBySearch: (data: any) => any
 }
@@ -45,7 +46,7 @@ const sortOptions = [
 
 const SearchForm: React.FC<Props> = ({ getBooksBySearch }) => {
 
-    const { register, reset, getValues, handleSubmit } = useForm<ISearchForm>()
+    const { register, resetField, getValues, handleSubmit } = useForm<ISearchForm>()
     const [hasValue, setHasValue] = useState(false)
     const [onInput, setOnInput] = useState(false)
 
@@ -62,13 +63,15 @@ const SearchForm: React.FC<Props> = ({ getBooksBySearch }) => {
         setOnInput(true)
         setTimeout(() => {
             setOnInput(false)
-        }, 1000)
+        }, 500)
     }
     const clearInputHandler = () => {
-        reset()
+        resetField('query')
         setHasValue(false)
     }
-    const onSubmit = (data: ISearchForm) => getBooksBySearch(data)
+    const onSubmit = (data: ISearchForm) => {
+        if (hasValue && !onInput) getBooksBySearch(data)
+    }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
