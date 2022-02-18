@@ -1,0 +1,24 @@
+@import "../../scss/colors.scss";
+
+.container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+.label {
+    color: $gray;
+    transition: color 0.2s;
+    font-size: 1rem;
+    position: relative;
+}
+.active {
+    color: #fff !important;
+}
+.radio {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: 50%;
+    z-index: -5;
+}

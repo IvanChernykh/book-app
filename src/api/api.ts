@@ -16,9 +16,10 @@ const axiosInstane = axios.create({
 
 export const api = {
     searchForBooks: (data: ISearchForm) => {
-        const url = `volumes?q=${data.query}&&key=${API_KEY}`
+        const url = `volumes?q=${data.query}&maxResults=20&orderBy=${data.sortBy}&key=${API_KEY}`
 
         return axiosInstane.get(url)
             .catch(err => err.response)
-    }
+    },
+
 }

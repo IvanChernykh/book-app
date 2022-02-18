@@ -9,7 +9,7 @@ import { routes } from '../../config'
 
 const Main: React.FC = () => {
     return (
-        <Box>
+        <Box pl={2} pr={2}>
             <Routes>
                 <Route path={routes.home} element={<>home</>} />
                 <Route path={routes.search} element={<SearchPage />} />
