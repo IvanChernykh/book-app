@@ -15,8 +15,8 @@ const axiosInstane = axios.create({
 })
 
 export const api = {
-    searchForBooks: (data: ISearchForm) => {
-        const url = `volumes?q=${data.query}&maxResults=20&orderBy=${data.sortBy}&key=${API_KEY}`
+    searchForBooks: (data: ISearchForm, startIndex = 0) => {
+        const url = `volumes?q=${data.query}&maxResults=24&startIndex=${startIndex}&orderBy=${data.sortBy}&key=${API_KEY}`
 
         return axiosInstane.get(url)
             .catch(err => err.response)

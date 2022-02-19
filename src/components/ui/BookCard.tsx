@@ -7,14 +7,15 @@ import styles from './_BookCard.module.scss'
 
 type Props = {
     item: IBookItem
+    clickHandler?: (e: React.MouseEvent<HTMLDivElement>) => any //should remove question mark
 }
 
-const BookCard: React.FC<Props> = ({ item }) => {
+const BookCard: React.FC<Props> = ({ item, clickHandler }) => {
 
     const authors = item.authors?.length > 1 ? item.authors.join(', ') : item.authors
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container} onClick={clickHandler}>
             <div className={styles.img_container}>
                 <div className={styles.img_inner}>
                     <img

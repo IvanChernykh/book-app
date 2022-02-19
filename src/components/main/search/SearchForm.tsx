@@ -54,6 +54,7 @@ const SearchForm: React.FC<Props> = ({ getBooksBySearch }) => {
         if (hasValue && !onInput) {
             const data = collectFormData(formFields, getValues)
             getBooksBySearch(data)
+            //setCurrentSearch
         }
     }, [onInput])
 
@@ -70,7 +71,10 @@ const SearchForm: React.FC<Props> = ({ getBooksBySearch }) => {
         setHasValue(false)
     }
     const onSubmit = (data: ISearchForm) => {
-        if (hasValue && !onInput) getBooksBySearch(data)
+        if (hasValue && !onInput) {
+            getBooksBySearch(data)
+            //setCurrentSearch
+        }
     }
 
     return (
