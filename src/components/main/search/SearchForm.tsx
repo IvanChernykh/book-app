@@ -6,8 +6,11 @@ import { Box } from '@mui/material'
 import TextInput from '../../ui/TextInput'
 import RadioButtons from '../../ui/RadioButtons'
 
-import { getBooksBySearch } from '../../../redux/reducers/thunks'
+import { getBooksBySearch } from '../../../redux/reducers/search/searchThunks'
 import { collectFormData } from '../../../utils/collectFormData'
+import { clearSearchResults } from '../../../redux/reducers/search/searchReducer'
+import { IClearSearchResults } from '../../../redux/reducers/search/types/searchActionTypes'
+import { TStore } from '../../../redux/store'
 
 
 export interface ISearchForm {
@@ -17,7 +20,9 @@ export interface ISearchForm {
 type TFormFileds = keyof ISearchForm
 
 type Props = {
+    startIndex: number | undefined
     getBooksBySearch: (data: any, startIndex: number) => any
+    clearSearchResults: () => IClearSearchResults
 }
 
 
@@ -44,7 +49,7 @@ const sortOptions = [
 ]
 
 
-const SearchForm: React.FC<Props> = ({ getBooksBySearch }) => {
+const SearchForm: React.FC<Props> = ({ startIndex, getBooksBySearch, clearSearchResults }) => {
 
     const { register, resetField, getValues, handleSubmit } = useForm<ISearchForm>()
     const [hasValue, setHasValue] = useState(false)
@@ -52,6 +57,8 @@ const SearchForm: React.FC<Props> = ({ getBooksBySearch }) => {
 
     useEffect(() => {
         if (hasValue && !onInput) {
+            if (startIndex && startIndex !== 0) clearSearchResults()
+
             const data = collectFormData(formFields, getValues)
             getBooksBySearch(data, 0)
         }
@@ -71,6 +78,7 @@ const SearchForm: React.FC<Props> = ({ getBooksBySearch }) => {
     }
     const onSubmit = (data: ISearchForm) => {
         if (hasValue && !onInput) {
+            if (startIndex && startIndex !== 0) clearSearchResults()
             getBooksBySearch(data, 0)
         }
     }
@@ -95,5 +103,7 @@ const SearchForm: React.FC<Props> = ({ getBooksBySearch }) => {
         </form>
     )
 }
-
-export default connect(null, { getBooksBySearch })(SearchForm)
+const mapStateToProps = (state: TStore) => ({
+    startIndex: state.search.currentSearch?.startIndex
+})
+export default connect(mapStateToProps, { getBooksBySearch, clearSearchResults })(SearchForm)

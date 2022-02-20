@@ -1,18 +1,22 @@
 import React from 'react'
 import { Typography } from '@mui/material'
 
-import { IBookItem } from '../../redux/reducers/types/stateTypes'
+import { IBookItem } from '../../types'
 import styles from './_BookCard.module.scss'
+
 
 
 type Props = {
     item: IBookItem
-    clickHandler?: (e: React.MouseEvent<HTMLDivElement>) => any //should remove question mark
 }
 
-const BookCard: React.FC<Props> = ({ item, clickHandler }) => {
+const BookCard: React.FC<Props> = ({ item }) => {
 
     const authors = item.authors?.length > 1 ? item.authors.join(', ') : item.authors
+
+    const clickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+        //should split reducers on searchReducer, mainReducer, favoritesReducer
+    }
 
     return (
         <div className={styles.container} onClick={clickHandler}>

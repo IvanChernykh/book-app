@@ -1,6 +1,6 @@
-import { ISearchForBooksResponseData } from "../../../types"
-import { actions } from "../actions"
-import { ICurrentSearch } from "./stateTypes"
+import { ISearchForBooksResponseData } from "../../../../types"
+import { actions } from "../searchActions"
+import { ICurrentSearch } from "./searchStateTypes"
 
 export interface ISetSearchResults {
     type: typeof actions.SET_SEARCH_RESULTS
@@ -13,6 +13,5 @@ export interface ISetCurrentSearch {
 export interface IClearSearchResults {
     type: typeof actions.CLEAR_SEARCH_RESULTS
 }
-
 
 export type ActionTypes = ISetSearchResults | IClearSearchResults | ISetCurrentSearch

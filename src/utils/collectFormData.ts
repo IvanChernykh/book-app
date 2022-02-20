@@ -1,4 +1,4 @@
-import { UseFormGetValues } from "react-hook-form";
+import { UseFormGetValues } from "react-hook-form"
 
 export const collectFormData = (values: string[], getValues: UseFormGetValues<any>) => {
 

@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import usePagination, { UsePaginationItem } from '@mui/material/usePagination/usePagination'
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 import styles from './_Pagination.module.scss'
+
 
 type Props = {
     pagesCount: number

@@ -5,11 +5,11 @@ import { connect } from 'react-redux'
 import BookCard from '../../ui/BookCard'
 import PaginationControl from '../../ui/Pagination'
 
-import { ICurrentSearch, ISearcResults } from '../../../redux/reducers/types/stateTypes'
+import { ICurrentSearch, ISearcResults } from '../../../redux/reducers/search/types/searchStateTypes'
 import { TStore } from '../../../redux/store'
 import { ISearchForm } from './SearchForm'
 import { MAX_SEARCH_RESULTS } from '../../../config'
-import { getBooksBySearch } from '../../../redux/reducers/thunks'
+import { getBooksBySearch } from '../../../redux/reducers/search/searchThunks'
 
 
 type Props = {
@@ -30,6 +30,11 @@ const styles = {
 
 const SearchResults: React.FC<Props> = ({ searchResults, currentSearch, getBooksBySearch }) => {
 
+    const changeResultPage = (currentPage: number) => {
+        const startIndex = (currentPage - 1) * MAX_SEARCH_RESULTS
+        getBooksBySearch(currentSearch!, startIndex)
+    }
+
     const Results = searchResults?.items.map(item => {
         return (
             <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item.id}>
@@ -37,11 +42,6 @@ const SearchResults: React.FC<Props> = ({ searchResults, currentSearch, getBooks
             </Grid>
         )
     })
-
-    const changeResultPage = (currentPage: number) => {
-        const startIndex = (currentPage - 1) * MAX_SEARCH_RESULTS
-        getBooksBySearch(currentSearch!, startIndex)
-    }
 
     return (
         <>

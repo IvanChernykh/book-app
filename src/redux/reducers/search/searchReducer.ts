@@ -1,15 +1,17 @@
-import { MAX_SEARCH_RESULTS } from "../../config"
-import { ISearchForBooksResponseData } from "../../types"
-import { actions } from "./actions"
-import { ActionTypes, IClearSearchResults, ISetCurrentSearch, ISetSearchResults } from "./types/actionTypes"
-import { IBookItem, ICurrentSearch, IState } from "./types/stateTypes"
+import { MAX_SEARCH_RESULTS } from "../../../config"
+import { actions } from "./searchActions"
+
+import { IBookItem, ISearchForBooksResponseData } from "../../../types"
+import { ActionTypes, IClearSearchResults, ISetCurrentSearch, ISetSearchResults } from "./types/searchActionTypes"
+import { ICurrentSearch, IState } from "./types/searchStateTypes"
+
 
 const initialState: IState = {
     searchResults: null,
     currentSearch: null
 }
 
-const reducer = (state = initialState, action: ActionTypes) => {
+const searchReducer = (state = initialState, action: ActionTypes) => {
     switch (action.type) {
         case actions.SET_SEARCH_RESULTS: {
             const pagesCount = Math.ceil(action.payload.totalItems / MAX_SEARCH_RESULTS)
@@ -42,7 +44,7 @@ const reducer = (state = initialState, action: ActionTypes) => {
         }
         case actions.CLEAR_SEARCH_RESULTS: {
             return {
-                ...state, searchResults: null
+                ...state, searchResults: null, currentSearch: null
             }
         }
         default: {
@@ -61,4 +63,4 @@ export const setCurrentSearch = (data: ICurrentSearch): ISetCurrentSearch => ({
 })
 export const clearSearchResults = (): IClearSearchResults => ({ type: actions.CLEAR_SEARCH_RESULTS })
 
-export default reducer
+export default searchReducer

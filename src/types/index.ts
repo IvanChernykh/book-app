@@ -20,3 +20,6 @@ export interface IVolumeInfo {
     subtitle: string
     title: string
 }
+export interface IBookItem extends IVolumeInfo {
+    id: string
+}

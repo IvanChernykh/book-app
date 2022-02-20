@@ -1,12 +1,12 @@
-import { Box } from '@mui/material'
 import React, { useEffect } from 'react'
+import { Box } from '@mui/material'
 import { connect } from 'react-redux'
 
 import SearchForm from './SearchForm'
 import SearchResults from './SearchResults'
 
-import { clearSearchResults } from '../../../redux/reducers/reducer'
-import { ISearcResults } from '../../../redux/reducers/types/stateTypes'
+import { clearSearchResults } from '../../../redux/reducers/search/searchReducer'
+import { ISearcResults } from '../../../redux/reducers/search/types/searchStateTypes'
 import { TStore } from '../../../redux/store'
 
 
@@ -15,6 +15,7 @@ type Props = {
     clearSearchResults: () => any
 }
 const SearchPage: React.FC<Props> = ({ searchResults, clearSearchResults }) => {
+    const ref: any = React.useRef()
     useEffect(() => {
         return () => {
             clearSearchResults()
@@ -22,7 +23,7 @@ const SearchPage: React.FC<Props> = ({ searchResults, clearSearchResults }) => {
     }, [])
 
     return (
-        <Box >
+        <Box>
             <Box pt={2} pb={2} mb={2}>
                 <SearchForm />
             </Box>

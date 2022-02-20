@@ -1,13 +1,13 @@
 import { ThunkAction } from "redux-thunk"
 
-import { api } from "../../api/api"
+import { api } from "../../../api/api"
 
-import { ISearchForm } from "../../components/main/search/SearchForm"
-import { MAX_SEARCH_RESULTS } from "../../config"
-import { ISearchForBooksResponseData } from "../../types"
-import { setSearchResults, setCurrentSearch } from "./reducer"
-import { ActionTypes } from "./types/actionTypes"
-import { IState } from "./types/stateTypes"
+import { ISearchForm } from "../../../components/main/search/SearchForm"
+import { MAX_SEARCH_RESULTS } from "../../../config"
+import { ISearchForBooksResponseData } from "../../../types"
+import { setSearchResults, setCurrentSearch } from "./searchReducer"
+import { ActionTypes } from "./types/searchActionTypes"
+import { IState } from "./types/searchStateTypes"
 
 
 type ThunkType = ThunkAction<void, IState, unknown, ActionTypes>
