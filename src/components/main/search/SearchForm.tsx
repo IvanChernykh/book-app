@@ -17,7 +17,7 @@ export interface ISearchForm {
 type TFormFileds = keyof ISearchForm
 
 type Props = {
-    getBooksBySearch: (data: any) => any
+    getBooksBySearch: (data: any, startIndex: number) => any
 }
 
 
@@ -53,8 +53,7 @@ const SearchForm: React.FC<Props> = ({ getBooksBySearch }) => {
     useEffect(() => {
         if (hasValue && !onInput) {
             const data = collectFormData(formFields, getValues)
-            getBooksBySearch(data)
-            //setCurrentSearch
+            getBooksBySearch(data, 0)
         }
     }, [onInput])
 
@@ -72,8 +71,7 @@ const SearchForm: React.FC<Props> = ({ getBooksBySearch }) => {
     }
     const onSubmit = (data: ISearchForm) => {
         if (hasValue && !onInput) {
-            getBooksBySearch(data)
-            //setCurrentSearch
+            getBooksBySearch(data, 0)
         }
     }
 

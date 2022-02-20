@@ -1,13 +1,21 @@
 import React from 'react'
 import { Grid, Typography, Box } from '@mui/material'
+import { connect } from 'react-redux'
 
 import BookCard from '../../ui/BookCard'
-
-import { ISearcResults } from '../../../redux/reducers/types/stateTypes'
 import PaginationControl from '../../ui/Pagination'
+
+import { ICurrentSearch, ISearcResults } from '../../../redux/reducers/types/stateTypes'
+import { TStore } from '../../../redux/store'
+import { ISearchForm } from './SearchForm'
+import { MAX_SEARCH_RESULTS } from '../../../config'
+import { getBooksBySearch } from '../../../redux/reducers/thunks'
+
 
 type Props = {
     searchResults: ISearcResults
+    currentSearch: ICurrentSearch | null
+    getBooksBySearch: (data: ISearchForm, startIndex: number) => void
 }
 
 const styles = {
@@ -20,7 +28,7 @@ const styles = {
     }
 }
 
-const SearchResults: React.FC<Props> = ({ searchResults }) => {
+const SearchResults: React.FC<Props> = ({ searchResults, currentSearch, getBooksBySearch }) => {
 
     const Results = searchResults?.items.map(item => {
         return (
@@ -30,6 +38,11 @@ const SearchResults: React.FC<Props> = ({ searchResults }) => {
         )
     })
 
+    const changeResultPage = (currentPage: number) => {
+        const startIndex = (currentPage - 1) * MAX_SEARCH_RESULTS
+        getBooksBySearch(currentSearch!, startIndex)
+    }
+
     return (
         <>
             <Typography variant="h4" sx={styles.title} mb={4}>Результати</Typography>
@@ -38,10 +51,18 @@ const SearchResults: React.FC<Props> = ({ searchResults }) => {
                 {Results}
             </Grid>
             <Box sx={styles.pagination}>
-                <PaginationControl />
+                {searchResults.totalItems > MAX_SEARCH_RESULTS
+                    &&
+                    (<PaginationControl
+                        setCurrentPage={changeResultPage}
+                        pagesCount={searchResults.pagesCount}
+                    />
+                    )}
             </Box>
         </>
     )
 }
-
-export default SearchResults
+const mapStateToProps = (state: TStore) => ({
+    currentSearch: state.search.currentSearch
+})
+export default connect(mapStateToProps, { getBooksBySearch })(SearchResults)

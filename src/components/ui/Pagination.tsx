@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import usePagination, { UsePaginationItem } from '@mui/material/usePagination/usePagination'
 
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
@@ -6,19 +6,31 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 import styles from './_Pagination.module.scss'
 
+type Props = {
+    pagesCount: number
+    setCurrentPage: (...params: any) => void
+}
 
-const generatePaginationItems = (items: UsePaginationItem[]) => {
+const generatePaginationItems = (items: UsePaginationItem[], pagesCount: number, setCurrentPage: React.Dispatch<React.SetStateAction<number>>) => {
     return items.map(({ page, type, selected, ...item }, index) => {
+
         let children = null
+
+        const onClickHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+            item.onClick(e)
+            setCurrentPage(page)
+        }
 
         if (type === 'start-ellipsis' || type === 'end-ellipsis') {
             children = <span className={styles.ellipsis}>…</span>;
         } else if (type === 'page') {
             children = (
                 <button
-                    type="button"
-                    className={selected ? `${styles.button} ${styles.active}` : styles.button}
                     {...item}
+                    type="button"
+                    disabled={selected ? true : false}
+                    className={selected ? `${styles.button} ${styles.active}` : styles.button}
+                    onClick={onClickHandler}
                 >
                     {page}
                 </button>
@@ -26,9 +38,10 @@ const generatePaginationItems = (items: UsePaginationItem[]) => {
         } else if (type === 'next') {
             children = (
                 <button
-                    type="button"
-                    className={selected ? `${styles.button} ${styles.active}` : styles.button}
                     {...item}
+                    type="button"
+                    className={page === pagesCount + 1 ? styles.disabled : styles.button}
+                    onClick={onClickHandler}
                 >
                     <ArrowForwardIosIcon className={styles.icon} />
                 </button>
@@ -36,9 +49,10 @@ const generatePaginationItems = (items: UsePaginationItem[]) => {
         } else if (type === 'previous') {
             children = (
                 <button
-                    type="button"
-                    className={selected ? `${styles.button} ${styles.active}` : styles.button}
                     {...item}
+                    type="button"
+                    className={page === 0 ? styles.disabled : styles.button}
+                    onClick={onClickHandler}
                 >
                     <ArrowBackIosIcon className={styles.icon} />
                 </button>
@@ -50,15 +64,11 @@ const generatePaginationItems = (items: UsePaginationItem[]) => {
     })
 }
 
-const PaginationControl: React.FC = () => {
+const PaginationControl: React.FC<Props> = ({ pagesCount, setCurrentPage }) => {
 
-    const { items } = usePagination({ count: 10 })
-    /* const [page, setPage] = useState(1)
-    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-        setPage(value);
-    }; */
+    const { items } = usePagination({ count: pagesCount }) //count: totalPages - calculate from totalItems
 
-    const PaginationItems = generatePaginationItems(items)
+    const PaginationItems = generatePaginationItems(items, pagesCount, setCurrentPage)
 
     return (
         <nav>
