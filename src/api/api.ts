@@ -7,8 +7,7 @@ import { API_KEY, MAX_SEARCH_RESULTS } from "../config"
 //volumes?q=${query}&maxResults=30&startIndex=${startIndex}&orderBy=${sort}&key=${api.apiKey}
 
 //get specific volume:
-//https://www.googleapis.com/books/v1/volumes/volumeId
-//https://www.googleapis.com/books/v1/volumes/zyTCAlFPjgYC?key=yourAPIKey
+//https://www.googleapis.com/books/v1/volumes/bookId?key=yourAPIKey
 
 const axiosInstane = axios.create({
     baseURL: 'https://www.googleapis.com/books/v1/'
@@ -21,5 +20,10 @@ export const api = {
         return axiosInstane.get(url)
             .catch(err => err.response)
     },
+    getSpecificBook: (bookId: string) => {
+        const url = `volumes/${bookId}?key=${API_KEY}`
 
+        return axiosInstane.get(url)
+            .catch(err => err.response)
+    }
 }

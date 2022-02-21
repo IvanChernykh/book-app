@@ -7,17 +7,20 @@ import SearchResults from './SearchResults'
 
 import { clearSearchResults } from '../../../redux/reducers/search/searchReducer'
 import { ISearcResults } from '../../../redux/reducers/search/types/searchStateTypes'
+import { IClearSearchResults } from '../../../redux/reducers/search/types/searchActionTypes'
 import { TStore } from '../../../redux/store'
 
 
 type Props = {
+    isBookOpen: boolean
     searchResults: ISearcResults | null
-    clearSearchResults: () => any
+    clearSearchResults: () => IClearSearchResults
 }
-const SearchPage: React.FC<Props> = ({ searchResults, clearSearchResults }) => {
-    const ref: any = React.useRef()
+const SearchPage: React.FC<Props> = ({ isBookOpen, searchResults, clearSearchResults }) => {
+
     useEffect(() => {
         return () => {
+            //if (!isBookOpen) 
             clearSearchResults()
         }
     }, [])
@@ -35,7 +38,8 @@ const SearchPage: React.FC<Props> = ({ searchResults, clearSearchResults }) => {
 }
 
 const mapStateToProps = (state: TStore) => ({
-    searchResults: state.search.searchResults
+    searchResults: state.search.searchResults,
+    isBookOpen: state.main.bookPage.isOpen
 })
 
 export default connect(mapStateToProps, { clearSearchResults })(SearchPage)

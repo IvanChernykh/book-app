@@ -7,6 +7,7 @@ import SearchPage from './search/SearchPage'
 import { routes } from '../../config'
 import { connect } from 'react-redux'
 import { TStore } from '../../redux/store'
+import BookPage from './book/BookPage'
 
 
 
@@ -27,6 +28,7 @@ const Main: React.FC<Props> = ({ searchIndex }) => {
                 <Route path={routes.home} element={<>home</>} />
                 <Route path={routes.search} element={<SearchPage />} />
                 <Route path={routes.favorites} element={<>favorites</>} />
+                <Route path={routes.book.optional} element={<BookPage />} />
             </Routes>
         </Box>
     )

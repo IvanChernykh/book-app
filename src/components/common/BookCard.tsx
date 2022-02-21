@@ -1,34 +1,36 @@
 import React from 'react'
 import { Typography } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import { connect } from 'react-redux'
+
+import BookImage from '../ui/BookImage'
 
 import { IBookItem } from '../../types'
+import { setBookPage } from '../../redux/reducers/main/mainReducer'
+import { ISetBookPage } from '../../redux/reducers/main/types/mainActionTypes'
+import { routes } from '../../config'
 import styles from './_BookCard.module.scss'
-
 
 
 type Props = {
     item: IBookItem
+    setBookPage: (book: IBookItem) => ISetBookPage
 }
 
-const BookCard: React.FC<Props> = ({ item }) => {
+const BookCard: React.FC<Props> = ({ item, setBookPage }) => {
+
+    const navigate = useNavigate()
 
     const authors = item.authors?.length > 1 ? item.authors.join(', ') : item.authors
 
     const clickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
-        //should split reducers on searchReducer, mainReducer, favoritesReducer
+        setBookPage(item)
+        navigate(`${routes.book.value}/${item.id}`)
     }
 
     return (
         <div className={styles.container} onClick={clickHandler}>
-            <div className={styles.img_container}>
-                <div className={styles.img_inner}>
-                    <img
-                        src={item.imageLinks?.thumbnail}
-                        alt={item.title}
-                        className={styles.img}
-                    />
-                </div>
-            </div>
+            <BookImage item={item} size="small" />
             <Typography className={styles.title} mb={1}>
                 {item.title}
             </Typography>
@@ -39,4 +41,4 @@ const BookCard: React.FC<Props> = ({ item }) => {
     )
 }
 
-export default BookCard
+export default connect(null, { setBookPage })(BookCard)

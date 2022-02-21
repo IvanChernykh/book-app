@@ -5,28 +5,22 @@ import { IBookItem, ISearchForBooksResponseData } from "../../../types"
 import { ActionTypes, IClearSearchResults, ISetCurrentSearch, ISetSearchResults } from "./types/searchActionTypes"
 import { ICurrentSearch, IState } from "./types/searchStateTypes"
 
+import { setBookItem } from "../../../utils/common"
+
 
 const initialState: IState = {
     searchResults: null,
     currentSearch: null
 }
 
+
+
 const searchReducer = (state = initialState, action: ActionTypes) => {
     switch (action.type) {
         case actions.SET_SEARCH_RESULTS: {
             const pagesCount = Math.ceil(action.payload.totalItems / MAX_SEARCH_RESULTS)
 
-            const items: IBookItem[] = action.payload.items.map(item => ({
-                id: item.id,
-                authors: item.volumeInfo.authors,
-                categories: item.volumeInfo.categories,
-                description: item.volumeInfo.description,
-                imageLinks: item.volumeInfo.imageLinks,
-                language: item.volumeInfo.language,
-                publishedDate: item.volumeInfo.publishedDate,
-                subtitle: item.volumeInfo.subtitle,
-                title: item.volumeInfo.title,
-            }))
+            const items: IBookItem[] = action.payload.items.map(item => setBookItem(item))
 
             return {
                 ...state,

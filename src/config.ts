@@ -6,4 +6,8 @@ export const routes = {
     home: '/',
     search: '/search',
     favorites: '/favorites',
+    book: {
+        value: '/book',
+        optional: 'book/:id'
+    }
 }

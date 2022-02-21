@@ -4,7 +4,8 @@ import { api } from "../../../api/api"
 
 import { ISearchForm } from "../../../components/main/search/SearchForm"
 import { MAX_SEARCH_RESULTS } from "../../../config"
-import { ISearchForBooksResponseData } from "../../../types"
+import { ISearchForBooksResponseData, ResponseBookItem } from "../../../types"
+import { setBookItem } from "../../../utils/common"
 import { setSearchResults, setCurrentSearch } from "./searchReducer"
 import { ActionTypes } from "./types/searchActionTypes"
 import { IState } from "./types/searchStateTypes"
@@ -25,4 +26,3 @@ export const getBooksBySearch = (data: ISearchForm, startIndex: number): ThunkTy
         dispatch(getBooksBySearch(data, startIndex - MAX_SEARCH_RESULTS))
     }
 }
-

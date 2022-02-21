@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid, Typography, Box } from '@mui/material'
 import { connect } from 'react-redux'
 
-import BookCard from '../../ui/BookCard'
+import BookCard from '../../common/BookCard'
 import PaginationControl from '../../ui/Pagination'
 
 import { ICurrentSearch, ISearcResults } from '../../../redux/reducers/search/types/searchStateTypes'
