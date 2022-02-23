@@ -27,9 +27,9 @@ const Main: React.FC<Props> = ({ searchIndex }) => {
     return (
         <Box pl={2} pr={2} pb={8} sx={{ overflow: 'auto' }} ref={ref} >
             <Routes>
-                <Route path={routes.home} element={<>home</>} />
+                <Route path={routes.home} element={<p>this page is under construction...</p>} />
                 <Route path={routes.search} element={<SearchPage />} />
-                <Route path={routes.favorites} element={<>favorites</>} />
+                <Route path={routes.favorites} element={<p>this page is under construction...</p>} />
                 <Route path={routes.book.optional} element={<BookPage />} />
             </Routes>
         </Box>

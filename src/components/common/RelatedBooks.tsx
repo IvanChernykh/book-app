@@ -42,7 +42,7 @@ const mapBookItems = (items: IBookItem[]) => {
 }
 
 const RelatedBooks: React.FC<Props> = ({ type, query, items, getRelatedBooksBySearch }) => {
-    console.log('render')
+
     const [init, setInit] = useState(false)
     const [startIndex, setStartIndex] = useState(0)
 
@@ -55,7 +55,7 @@ const RelatedBooks: React.FC<Props> = ({ type, query, items, getRelatedBooksBySe
     useEffect(() => {
         setInit(false)
         setStartIndex(0)
-        getRelatedBooksBySearch(data, startIndex)
+        getRelatedBooksBySearch(data, 0)
     }, [query])
 
     const updateResults = () => {
