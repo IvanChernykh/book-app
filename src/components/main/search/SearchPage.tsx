@@ -11,6 +11,7 @@ import { IClearSearchResults } from '../../../redux/reducers/search/types/search
 import { TStore } from '../../../redux/store'
 import { ILocation } from '../../../redux/reducers/main/types/mainStateTypes'
 import Preloader from '../../ui/Preloader'
+import { BASE_URL } from '../../../config'
 
 
 type Props = {
@@ -23,7 +24,7 @@ const SearchPage: React.FC<Props> = ({ location, searchResults, clearSearchResul
     const [isInit, setIsInit] = useState(false)
 
     useEffect(() => {
-        if (location?.current.split('/')[1] !== 'book') {
+        if (location?.current.split('/')[2] !== 'book') {
             clearSearchResults()
         }
         setIsInit(true)
