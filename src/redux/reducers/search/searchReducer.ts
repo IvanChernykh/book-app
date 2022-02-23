@@ -65,6 +65,8 @@ export const setRelatedResults = (data: ResponseBookItem[]): ISetRelatedResults 
     type: actions.SET_RELATED_RESULTS,
     payload: data
 })
+
 export const clearSearchResults = (): IClearSearchResults => ({ type: actions.CLEAR_SEARCH_RESULTS })
+
 
 export default searchReducer

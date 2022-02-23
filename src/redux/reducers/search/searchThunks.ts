@@ -27,8 +27,8 @@ export const getBooksBySearch = (data: ISearchForm, startIndex: number): ThunkTy
     }
 }
 
-export const getRelatedBooksBySearch = (data: ISearchForm): ThunkType => async dispatch => {
-    const res = await api.searchForBooks(data, 0)
+export const getRelatedBooksBySearch = (data: ISearchForm, startIndex: number): ThunkType => async dispatch => {
+    const res = await api.searchForBooks(data, startIndex)
 
     const resData: ISearchForBooksResponseData = res.data
 

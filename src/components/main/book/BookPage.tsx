@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Grid } from '@mui/material'
 import { connect } from 'react-redux'
 import { useLocation } from 'react-router-dom'
@@ -46,6 +46,7 @@ const BookPage: React.FC<Props> = ({ book, clearBookPage, getSpecificBook }) => 
             clearBookPage()
         }
     }, [])
+
     useEffect(() => {
         if (!book || bookId !== book.id) getSpecificBook(bookId)
     }, [pathname])
@@ -60,7 +61,11 @@ const BookPage: React.FC<Props> = ({ book, clearBookPage, getSpecificBook }) => 
                     <BookDescription bookItem={book} />
                 </Grid>
             </Grid>
-            {book.authors && <RelatedBooks query={book.authors[0]} />}
+            {book.authors ?
+                <RelatedBooks query={book.authors[0]} type="author" />
+                :
+                <RelatedBooks query={book.title} type="title" />
+            }
         </Box>
     ) : <Preloader />
 }

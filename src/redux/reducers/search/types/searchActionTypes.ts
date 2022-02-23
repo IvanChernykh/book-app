@@ -1,4 +1,4 @@
-import { IBookItem, ISearchForBooksResponseData, ResponseBookItem } from "../../../../types"
+import { ISearchForBooksResponseData, ResponseBookItem } from "../../../../types"
 import { actions } from "../searchActions"
 import { ICurrentSearch } from "./searchStateTypes"
 

@@ -1,0 +1,15 @@
+@import "../../scss/colors.scss";
+
+.button {
+    border: none;
+    outline: none;
+    padding: 0.5rem 1rem;
+    color: $gray;
+    font-size: 1.2rem;
+    background-color: transparent;
+    transition: all 0.2s;
+    cursor: pointer;
+    &:hover {
+        color: $textMain;
+    }
+}
