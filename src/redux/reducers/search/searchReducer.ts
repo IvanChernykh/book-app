@@ -1,8 +1,8 @@
 import { MAX_SEARCH_RESULTS } from "../../../config"
 import { actions } from "./searchActions"
 
-import { IBookItem, ISearchForBooksResponseData } from "../../../types"
-import { ActionTypes, IClearSearchResults, ISetCurrentSearch, ISetSearchResults } from "./types/searchActionTypes"
+import { IBookItem, ISearchForBooksResponseData, ResponseBookItem } from "../../../types"
+import { ActionTypes, IClearSearchResults, ISetCurrentSearch, ISetRelatedResults, ISetSearchResults } from "./types/searchActionTypes"
 import { ICurrentSearch, IState } from "./types/searchStateTypes"
 
 import { setBookItem } from "../../../utils/common"
@@ -10,7 +10,8 @@ import { setBookItem } from "../../../utils/common"
 
 const initialState: IState = {
     searchResults: null,
-    currentSearch: null
+    currentSearch: null,
+    relatedResults: null
 }
 
 const searchReducer = (state = initialState, action: ActionTypes): IState => {
@@ -34,6 +35,13 @@ const searchReducer = (state = initialState, action: ActionTypes): IState => {
                 ...state, currentSearch: action.payload
             }
         }
+        case actions.SET_RELATED_RESULTS: {
+            const items: IBookItem[] = action.payload.map(item => setBookItem(item))
+
+            return {
+                ...state, relatedResults: { items }
+            }
+        }
         case actions.CLEAR_SEARCH_RESULTS: {
             return {
                 ...state, searchResults: null, currentSearch: null
@@ -51,6 +59,10 @@ export const setSearchResults = (data: ISearchForBooksResponseData): ISetSearchR
 })
 export const setCurrentSearch = (data: ICurrentSearch): ISetCurrentSearch => ({
     type: actions.SET_CURRENT_SEARCH,
+    payload: data
+})
+export const setRelatedResults = (data: ResponseBookItem[]): ISetRelatedResults => ({
+    type: actions.SET_RELATED_RESULTS,
     payload: data
 })
 export const clearSearchResults = (): IClearSearchResults => ({ type: actions.CLEAR_SEARCH_RESULTS })

@@ -38,7 +38,7 @@ const SearchResults: React.FC<Props> = ({ searchResults, currentSearch, getBooks
     const Results = searchResults?.items.map(item => {
         return (
             <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item.id}>
-                <BookCard key={item.id} item={item} />
+                <BookCard item={item} />
             </Grid>
         )
     })

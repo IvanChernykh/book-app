@@ -20,11 +20,7 @@ const BookDescription: React.FC<Props> = ({ bookItem }) => {
                 {bookItem.authors && <>{bookItem.authors} &bull;</>} {bookItem.publishedDate}
             </Typography>
 
-            {bookItem.description && (
-                <Typography>
-                    {bookItem.description}
-                </Typography>
-            )}
+            {bookItem.description && <Typography>{bookItem.description}</Typography>}
         </>
     )
 }

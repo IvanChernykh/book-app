@@ -12,10 +12,10 @@ import { clearSearchResults } from '../../../redux/reducers/search/searchReducer
 import { IClearSearchResults } from '../../../redux/reducers/search/types/searchActionTypes'
 import { TStore } from '../../../redux/store'
 
-
+export type SortBy = 'relevance' | 'newest'
 export interface ISearchForm {
     query: string
-    sortBy: string
+    sortBy: SortBy
 }
 type TFormFileds = keyof ISearchForm
 

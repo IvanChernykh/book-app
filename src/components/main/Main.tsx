@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { Box } from '@mui/material'
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import SearchPage from './search/SearchPage'
@@ -18,13 +18,14 @@ interface Props {
 const Main: React.FC<Props> = ({ searchIndex }) => {
 
     const ref: any = useRef()
+    const { pathname } = useLocation()
 
     useEffect(() => {
-        if (searchIndex) ref.current.scroll(0, 0)
-    }, [searchIndex])
+        ref.current.scroll(0, 0)
+    }, [searchIndex, pathname])
 
     return (
-        <Box pl={2} pr={2} sx={{ overflow: 'auto' }} ref={ref} >
+        <Box pl={2} pr={2} pb={8} sx={{ overflow: 'auto' }} ref={ref} >
             <Routes>
                 <Route path={routes.home} element={<>home</>} />
                 <Route path={routes.search} element={<SearchPage />} />
