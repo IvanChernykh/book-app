@@ -8,6 +8,6 @@ export const routes = {
     favorites: '/favorites',
     book: {
         value: '/book',
-        optional: 'book/:id'
+        optional: '/book/:id'
     }
 }

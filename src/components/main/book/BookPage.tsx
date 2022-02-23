@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Grid } from '@mui/material'
 import { connect } from 'react-redux'
-import { Location, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 import BookImage from '../../ui/BookImage'
 import Preloader from '../../ui/Preloader'
@@ -18,7 +18,7 @@ import { IBookItem } from '../../../types'
 
 
 type Props = {
-    bookItem: IBookItem | null
+    book: IBookItem | null
     clearBookPage: () => IClearBookPage
     getSpecificBook: (id: string) => any
 }
@@ -31,28 +31,29 @@ const styles = {
     }
 }
 
-const getBookIdFromUrl = (location: Location) => location.pathname.split('book/')[1]
+const getBookIdFromUrl = (pathname: string) => pathname.split('book/')[1]
 
 
-const BookPage: React.FC<Props> = ({ bookItem, clearBookPage, getSpecificBook }) => {
+const BookPage: React.FC<Props> = ({ book, clearBookPage, getSpecificBook }) => {
 
-    const location = useLocation()
+    const { pathname } = useLocation()
 
     useEffect(() => {
-        if (!bookItem) getSpecificBook(getBookIdFromUrl(location))
+        if (!book) getSpecificBook(getBookIdFromUrl(pathname))
         return () => {
             clearBookPage()
         }
     }, [])
 
-    return bookItem ? (
+    //add to favorites button
+    return book ? (
         <>
             <Grid container pt={10}>
                 <Grid item xs={12} sm={12} md={4} mb={4} sx={styles.left}>
-                    <BookImage item={bookItem!} size="large" />
+                    <BookImage item={book!} size="large" />
                 </Grid>
                 <Grid item xs={12} sm={12} md={8} pl={2} pr={2}>
-                    <BookDescription bookItem={bookItem} />
+                    <BookDescription bookItem={book} />
                 </Grid>
             </Grid>
             {/* <RelatedBooks/> - component with list of related items */}
@@ -60,7 +61,7 @@ const BookPage: React.FC<Props> = ({ bookItem, clearBookPage, getSpecificBook })
     ) : <Preloader />
 }
 const mapStateToProps = (state: TStore) => ({
-    bookItem: state.main.bookPage.item
+    book: state.main.bookPage.item
 })
 
 export default connect(mapStateToProps, { clearBookPage, getSpecificBook })(BookPage)

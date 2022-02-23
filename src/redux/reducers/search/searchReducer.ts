@@ -13,9 +13,7 @@ const initialState: IState = {
     currentSearch: null
 }
 
-
-
-const searchReducer = (state = initialState, action: ActionTypes) => {
+const searchReducer = (state = initialState, action: ActionTypes): IState => {
     switch (action.type) {
         case actions.SET_SEARCH_RESULTS: {
             const pagesCount = Math.ceil(action.payload.totalItems / MAX_SEARCH_RESULTS)

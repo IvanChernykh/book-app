@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import BookImage from '../ui/BookImage'
@@ -14,17 +14,18 @@ import styles from './_BookCard.module.scss'
 
 type Props = {
     item: IBookItem
-    setBookPage: (book: IBookItem) => ISetBookPage
+    setBookPage: (book: IBookItem, pathname: string) => ISetBookPage
 }
 
 const BookCard: React.FC<Props> = ({ item, setBookPage }) => {
 
     const navigate = useNavigate()
+    const { pathname } = useLocation()
 
     const authors = item.authors?.length > 1 ? item.authors.join(', ') : item.authors
 
     const clickHandler = (e: React.MouseEvent<HTMLDivElement>) => {
-        setBookPage(item)
+        setBookPage(item, pathname)
         navigate(`${routes.book.value}/${item.id}`)
     }
 

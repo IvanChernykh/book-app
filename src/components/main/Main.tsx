@@ -1,13 +1,13 @@
 import React, { useEffect, useRef } from 'react'
 import { Box } from '@mui/material'
 import { Route, Routes } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 import SearchPage from './search/SearchPage'
+import BookPage from './book/BookPage'
 
 import { routes } from '../../config'
-import { connect } from 'react-redux'
 import { TStore } from '../../redux/store'
-import BookPage from './book/BookPage'
 
 
 
@@ -16,6 +16,7 @@ interface Props {
 }
 
 const Main: React.FC<Props> = ({ searchIndex }) => {
+
     const ref: any = useRef()
 
     useEffect(() => {
@@ -36,4 +37,5 @@ const Main: React.FC<Props> = ({ searchIndex }) => {
 const mapStateToProps = (state: TStore) => ({
     searchIndex: state.search.currentSearch?.startIndex
 })
+
 export default connect(mapStateToProps)(Main)
