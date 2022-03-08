@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography } from '@mui/material'
+import { Grid, Typography } from '@mui/material'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { connect } from 'react-redux'
 
@@ -30,15 +30,17 @@ const BookCard: React.FC<Props> = ({ item, setBookPage }) => {
     }
 
     return (
-        <div className={styles.container} onClick={clickHandler}>
-            <BookImage item={item} size="small" />
-            <Typography className={styles.title} mb={1}>
-                {item.title}
-            </Typography>
-            <Typography className={styles.authors}>
-                {authors}
-            </Typography>
-        </div>
+        <Grid item xs={12} sm={6} md={4} lg={3} xl={2} >
+            <div className={styles.container} onClick={clickHandler}>
+                <BookImage item={item} size="small" />
+                <Typography className={styles.title} mb={1}>
+                    {item.title}
+                </Typography>
+                <Typography className={styles.authors}>
+                    {authors}
+                </Typography>
+            </div>
+        </Grid >
     )
 }
 

@@ -12,6 +12,7 @@ import { MAX_SEARCH_RESULTS } from '../../../config'
 import { getBooksBySearch } from '../../../redux/reducers/search/searchThunks'
 
 
+
 type Props = {
     searchResults: ISearcResults
     currentSearch: ICurrentSearch | null
@@ -37,9 +38,7 @@ const SearchResults: React.FC<Props> = ({ searchResults, currentSearch, getBooks
 
     const Results = searchResults?.items.map(item => {
         return (
-            <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item.id}>
-                <BookCard item={item} />
-            </Grid>
+            <BookCard item={item} key={item.id} />
         )
     })
 

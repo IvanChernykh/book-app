@@ -3,12 +3,12 @@ import { Box, Grid, Typography } from '@mui/material'
 import { connect } from 'react-redux'
 
 import BookCard from './BookCard'
+import Button from '../ui/Button'
 
 import { getRelatedBooksBySearch } from '../../redux/reducers/search/searchThunks'
 import { TStore } from '../../redux/store'
 import { ISearchForm } from '../main/search/SearchForm'
 import { IBookItem } from '../../types'
-import Button from '../ui/Button'
 
 
 
@@ -34,9 +34,7 @@ const mapBookItems = (items: IBookItem[]) => {
     return items.map((item, i) => {
         if (i >= RESULTS_TO_SHOW) return
         return (
-            <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={item.id}>
-                <BookCard item={item} />
-            </Grid>
+            <BookCard item={item} key={item.id} />
         )
     })
 }
