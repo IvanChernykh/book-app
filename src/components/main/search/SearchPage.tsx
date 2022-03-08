@@ -4,14 +4,13 @@ import { connect } from 'react-redux'
 
 import SearchForm from './SearchForm'
 import SearchResults from './SearchResults'
+import Preloader from '../../ui/Preloader'
 
 import { clearSearchResults } from '../../../redux/reducers/search/searchReducer'
 import { ISearcResults } from '../../../redux/reducers/search/types/searchStateTypes'
 import { IClearSearchResults } from '../../../redux/reducers/search/types/searchActionTypes'
 import { TStore } from '../../../redux/store'
 import { ILocation } from '../../../redux/reducers/main/types/mainStateTypes'
-import Preloader from '../../ui/Preloader'
-import { BASE_URL } from '../../../config'
 
 
 type Props = {
@@ -24,7 +23,7 @@ const SearchPage: React.FC<Props> = ({ location, searchResults, clearSearchResul
     const [isInit, setIsInit] = useState(false)
 
     useEffect(() => {
-        if (location?.current.split('/')[2] !== 'book') {
+        if (location?.current.split('/').every(el => el !== 'book')) {
             clearSearchResults()
         }
         setIsInit(true)
@@ -37,6 +36,7 @@ const SearchPage: React.FC<Props> = ({ location, searchResults, clearSearchResul
             </Box>
             {isInit ? (
                 <Box pl={2} pr={2} pb={8}>
+                    {/* !searchResults && <LastSearchQueries> */}
                     {searchResults && <SearchResults searchResults={searchResults} />}
                 </Box>)
                 :

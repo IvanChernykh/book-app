@@ -1,7 +1,7 @@
 import { IBookItem } from "../../../../types";
 
 
-export interface IState {
+export interface IMainState {
     bookPage: IBookPage
     location: ILocation | null
 }

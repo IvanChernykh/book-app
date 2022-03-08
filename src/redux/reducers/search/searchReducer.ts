@@ -2,19 +2,20 @@ import { MAX_SEARCH_RESULTS } from "../../../config"
 import { actions } from "./searchActions"
 
 import { IBookItem, ISearchForBooksResponseData, ResponseBookItem } from "../../../types"
-import { ActionTypes, IClearSearchResults, ISetCurrentSearch, ISetRelatedResults, ISetSearchResults } from "./types/searchActionTypes"
-import { ICurrentSearch, IState } from "./types/searchStateTypes"
+import { ActionTypes, IClearSearchResults, ISetCurrentSearch, ISetRecentQueries, ISetRelatedResults, ISetSearchResults } from "./types/searchActionTypes"
+import { ICurrentSearch, IRecentQuery, ISearchState } from "./types/searchStateTypes"
 
 import { setBookItem } from "../../../utils/common"
 
 
-const initialState: IState = {
+const initialState: ISearchState = {
     searchResults: null,
     currentSearch: null,
-    relatedResults: null
+    relatedResults: null,
+    recentQueries: []
 }
 
-const searchReducer = (state = initialState, action: ActionTypes): IState => {
+const searchReducer = (state = initialState, action: ActionTypes): ISearchState => {
     switch (action.type) {
         case actions.SET_SEARCH_RESULTS: {
             const pagesCount = Math.ceil(action.payload.totalItems / MAX_SEARCH_RESULTS)
@@ -42,6 +43,21 @@ const searchReducer = (state = initialState, action: ActionTypes): IState => {
                 ...state, relatedResults: { items }
             }
         }
+        case actions.SET_RECENT_QUERIES: {
+
+            let recentQueries = [...state.recentQueries]
+
+            if (recentQueries.some(item => item.query === action.payload.query)) {
+                recentQueries = state.recentQueries.filter(item => item.query !== action.payload.query)
+            }
+            recentQueries.push(action.payload)
+
+            if (recentQueries.length > 6) recentQueries = recentQueries.slice(-6)
+
+            return {
+                ...state, recentQueries
+            }
+        }
         case actions.CLEAR_SEARCH_RESULTS: {
             return {
                 ...state, searchResults: null, currentSearch: null
@@ -63,6 +79,10 @@ export const setCurrentSearch = (data: ICurrentSearch): ISetCurrentSearch => ({
 })
 export const setRelatedResults = (data: ResponseBookItem[]): ISetRelatedResults => ({
     type: actions.SET_RELATED_RESULTS,
+    payload: data
+})
+export const setRecentQueries = (data: IRecentQuery): ISetRecentQueries => ({
+    type: actions.SET_RECENT_QUERIES,
     payload: data
 })
 

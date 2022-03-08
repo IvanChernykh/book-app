@@ -4,14 +4,13 @@ import { api } from "../../../api/api"
 
 import { ISearchForm } from "../../../components/main/search/SearchForm"
 import { MAX_SEARCH_RESULTS } from "../../../config"
-import { ISearchForBooksResponseData, ResponseBookItem } from "../../../types"
-import { setBookItem } from "../../../utils/common"
-import { setSearchResults, setCurrentSearch, setRelatedResults } from "./searchReducer"
+import { ISearchForBooksResponseData } from "../../../types"
+import { setSearchResults, setCurrentSearch, setRelatedResults, setRecentQueries } from "./searchReducer"
 import { ActionTypes } from "./types/searchActionTypes"
-import { IState } from "./types/searchStateTypes"
+import { ISearchState } from "./types/searchStateTypes"
 
 
-type ThunkType = ThunkAction<void, IState, unknown, ActionTypes>
+type ThunkType = ThunkAction<void, ISearchState, unknown, ActionTypes>
 
 export const getBooksBySearch = (data: ISearchForm, startIndex: number): ThunkType => async dispatch => {
     const res = await api.searchForBooks(data, startIndex)
@@ -21,6 +20,7 @@ export const getBooksBySearch = (data: ISearchForm, startIndex: number): ThunkTy
     if (res.status === 200 && resData.items) {
         dispatch(setSearchResults(resData))
         dispatch(setCurrentSearch({ ...data, startIndex }))
+        dispatch(setRecentQueries({ query: data.query, bookId: resData.items[0].id }))
     }
     if (res.status === 200 && !resData.items) {
         dispatch(getBooksBySearch(data, startIndex - MAX_SEARCH_RESULTS))

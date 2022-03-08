@@ -1,9 +1,9 @@
 import { IBookItem } from "../../../types"
 import { actions } from "./mainActions"
 import { ActionTypes, IClearBookPage, ISetBookPage, ISetLocation } from "./types/mainActionTypes"
-import { IState } from "./types/mainStateTypes"
+import { IMainState } from "./types/mainStateTypes"
 
-const initialState: IState = {
+const initialState: IMainState = {
     location: null,
     bookPage: {
         isOpen: false,
@@ -11,7 +11,7 @@ const initialState: IState = {
     }
 }
 
-const mainReducer = (state = initialState, action: ActionTypes): IState => {
+const mainReducer = (state = initialState, action: ActionTypes): IMainState => {
     switch (action.type) {
         case actions.SET_LOCATION: {
             return { ...state, location: action.payload }
