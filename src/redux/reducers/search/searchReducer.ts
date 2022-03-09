@@ -5,7 +5,7 @@ import { IBookItem, ISearchForBooksResponseData, ResponseBookItem } from "../../
 import { ActionTypes, IClearSearchResults, ISetCurrentSearch, ISetRecentQueries, ISetRelatedResults, ISetSearchResults } from "./types/searchActionTypes"
 import { ICurrentSearch, IRecentQuery, ISearchState } from "./types/searchStateTypes"
 
-import { setBookItem } from "../../../utils/common"
+import { filterSearchQueries, setBookItem } from "../../../utils/searchReducer"
 
 
 const initialState: ISearchState = {
@@ -44,15 +44,7 @@ const searchReducer = (state = initialState, action: ActionTypes): ISearchState 
             }
         }
         case actions.SET_RECENT_QUERIES: {
-
-            let recentQueries = [...state.recentQueries]
-
-            if (recentQueries.some(item => item.query === action.payload.query)) {
-                recentQueries = state.recentQueries.filter(item => item.query !== action.payload.query)
-            }
-            recentQueries.push(action.payload)
-
-            if (recentQueries.length > 6) recentQueries = recentQueries.slice(-6)
+            const recentQueries = filterSearchQueries(state, action)
 
             return {
                 ...state, recentQueries

@@ -23,7 +23,7 @@ const RecentQueries: React.FC<Props> = ({ recentQueries, isFetching }) => {
         null
         :
         (<>
-            <Typography variant='h4' mb={4} >Останні пошукові запити</Typography>
+            <Typography variant='h4' mb={4} >Нещодавні пошукові запити</Typography>
             <Grid container spacing={2}>
                 {Items}
             </Grid>

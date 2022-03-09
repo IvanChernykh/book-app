@@ -2,7 +2,7 @@ import { ThunkAction } from "redux-thunk"
 
 import { api } from "../../../api/api"
 
-import { setBookItem } from "../../../utils/common"
+import { setBookItem } from "../../../utils/searchReducer"
 import { setBookPage } from "./mainReducer"
 import { ActionTypes } from "./types/mainActionTypes"
 import { ResponseBookItem } from "../../../types"
@@ -20,6 +20,5 @@ export const getSpecificBook = (id: string): ThunkType => async dispatch => {
         const item = setBookItem(resData)
         dispatch(setBookPage(item))
     }
-
 }
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import SearchForm from './SearchForm'
 import SearchResults from './SearchResults'
+import RecentQueries from './RecentQueries'
 import Preloader from '../../ui/Preloader'
 
 import { clearSearchResults } from '../../../redux/reducers/search/searchReducer'
@@ -11,7 +12,7 @@ import { IRecentQuery, ISearcResults } from '../../../redux/reducers/search/type
 import { IClearSearchResults } from '../../../redux/reducers/search/types/searchActionTypes'
 import { TStore } from '../../../redux/store'
 import { ILocation } from '../../../redux/reducers/main/types/mainStateTypes'
-import RecentQueries from './RecentQueries'
+
 
 
 type Props = {

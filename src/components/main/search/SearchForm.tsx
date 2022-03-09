@@ -11,7 +11,7 @@ import { collectFormData } from '../../../utils/collectFormData'
 import { clearSearchResults } from '../../../redux/reducers/search/searchReducer'
 import { IClearSearchResults } from '../../../redux/reducers/search/types/searchActionTypes'
 import { TStore } from '../../../redux/store'
-import { setIsFetching } from '../../../redux/reducers/main/mainReducer'
+
 
 export type SortBy = 'relevance' | 'newest'
 export interface ISearchForm {
