@@ -12,8 +12,12 @@ export interface ISetBookPage {
 export interface IClearBookPage {
     type: typeof actions.CLEAR_BOOK_PAGE
 }
+export interface ISetIsFetching {
+    type: typeof actions.SET_IS_FETCHING
+    payload: boolean
+}
 export interface ISetLocation {
     type: typeof actions.SET_LOCATION
     payload: ILocation
 }
-export type ActionTypes = ISetBookPage | IClearBookPage | ISetLocation
+export type ActionTypes = ISetBookPage | IClearBookPage | ISetLocation | ISetIsFetching

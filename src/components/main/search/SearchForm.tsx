@@ -11,6 +11,7 @@ import { collectFormData } from '../../../utils/collectFormData'
 import { clearSearchResults } from '../../../redux/reducers/search/searchReducer'
 import { IClearSearchResults } from '../../../redux/reducers/search/types/searchActionTypes'
 import { TStore } from '../../../redux/store'
+import { setIsFetching } from '../../../redux/reducers/main/mainReducer'
 
 export type SortBy = 'relevance' | 'newest'
 export interface ISearchForm {
@@ -70,7 +71,7 @@ const SearchForm: React.FC<Props> = ({ startIndex, getBooksBySearch, clearSearch
         setOnInput(true)
         setTimeout(() => {
             setOnInput(false)
-        }, 500)
+        }, 600)
     }
     const clearInputHandler = () => {
         resetField('query')
@@ -106,4 +107,5 @@ const SearchForm: React.FC<Props> = ({ startIndex, getBooksBySearch, clearSearch
 const mapStateToProps = (state: TStore) => ({
     startIndex: state.search.currentSearch?.startIndex
 })
+
 export default connect(mapStateToProps, { getBooksBySearch, clearSearchResults })(SearchForm)

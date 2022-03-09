@@ -7,19 +7,22 @@ import SearchResults from './SearchResults'
 import Preloader from '../../ui/Preloader'
 
 import { clearSearchResults } from '../../../redux/reducers/search/searchReducer'
-import { ISearcResults } from '../../../redux/reducers/search/types/searchStateTypes'
+import { IRecentQuery, ISearcResults } from '../../../redux/reducers/search/types/searchStateTypes'
 import { IClearSearchResults } from '../../../redux/reducers/search/types/searchActionTypes'
 import { TStore } from '../../../redux/store'
 import { ILocation } from '../../../redux/reducers/main/types/mainStateTypes'
+import RecentQueries from './RecentQueries'
 
 
 type Props = {
     location: ILocation | null
+    isFetching: boolean
     searchResults: ISearcResults | null
+    recentQueries: IRecentQuery[] | []
 
     clearSearchResults: () => IClearSearchResults
 }
-const SearchPage: React.FC<Props> = ({ location, searchResults, clearSearchResults }) => {
+const SearchPage: React.FC<Props> = ({ location, searchResults, recentQueries, isFetching, clearSearchResults }) => {
     const [isInit, setIsInit] = useState(false)
 
     useEffect(() => {
@@ -36,8 +39,13 @@ const SearchPage: React.FC<Props> = ({ location, searchResults, clearSearchResul
             </Box>
             {isInit ? (
                 <Box pl={2} pr={2} pb={8}>
-                    {/* !searchResults && <LastSearchQueries> */}
-                    {searchResults && <SearchResults searchResults={searchResults} />}
+                    {(!searchResults && !!recentQueries.length) && <RecentQueries />}
+                    {isFetching && (
+                        <Box sx={{ height: '20rem' }}>
+                            <Preloader />
+                        </Box>
+                    )}
+                    {(searchResults && !isFetching) && <SearchResults searchResults={searchResults} />}
                 </Box>)
                 :
                 <Preloader />
@@ -48,7 +56,9 @@ const SearchPage: React.FC<Props> = ({ location, searchResults, clearSearchResul
 
 const mapStateToProps = (state: TStore) => ({
     searchResults: state.search.searchResults,
-    location: state.main.location
+    recentQueries: state.search.recentQueries,
+    location: state.main.location,
+    isFetching: state.main.isFetching
 })
 
 export default connect(mapStateToProps, { clearSearchResults })(SearchPage)

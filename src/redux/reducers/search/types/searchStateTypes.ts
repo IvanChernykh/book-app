@@ -23,5 +23,6 @@ export interface IRelatedResults {
 }
 export interface IRecentQuery {
     query: string
+    sortBy: SortBy
     bookId: string
 }
