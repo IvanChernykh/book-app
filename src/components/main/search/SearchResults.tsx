@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 
 import BookCard from '../../common/BookCard'
 import PaginationControl from '../../ui/Pagination'
-import Preloader from '../../ui/Preloader'
 
 import { ICurrentSearch, ISearcResults } from '../../../redux/reducers/search/types/searchStateTypes'
 import { TStore } from '../../../redux/store'
