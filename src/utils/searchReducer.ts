@@ -2,6 +2,7 @@ import { IBookItem, ResponseBookItem } from "../types"
 import { ISetRecentQueries } from "../redux/reducers/search/types/searchActionTypes"
 import { IRecentQuery, ISearchState } from "../redux/reducers/search/types/searchStateTypes"
 
+
 //bookItem
 export const setBookItem = (item: ResponseBookItem): IBookItem => {
     const publishedDate = item.volumeInfo.publishedDate?.split('-')[0]
@@ -18,6 +19,7 @@ export const setBookItem = (item: ResponseBookItem): IBookItem => {
         title: item.volumeInfo.title,
     }
 }
+
 
 //searchQueries
 const filterQueries = (queriesArr: IRecentQuery[], item: IRecentQuery) => {

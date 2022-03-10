@@ -46,7 +46,7 @@ const SearchPage: React.FC<Props> = ({ location, searchResults, recentQueries, i
                             <Preloader />
                         </Box>
                     )}
-                    {(searchResults && !isFetching) && <SearchResults searchResults={searchResults} />}
+                    {searchResults && <SearchResults searchResults={searchResults} />}
                 </Box>)
                 :
                 <Preloader />

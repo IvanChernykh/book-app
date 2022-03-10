@@ -3,11 +3,7 @@ import axios from "axios"
 import { ISearchForm } from "../components/main/search/SearchForm"
 import { API_KEY, MAX_SEARCH_RESULTS } from "../config"
 
-//get books:
-//volumes?q=${query}&maxResults=30&startIndex=${startIndex}&orderBy=${sort}&key=${api.apiKey}
 
-//get specific volume:
-//https://www.googleapis.com/books/v1/volumes/bookId?key=yourAPIKey
 
 const axiosInstane = axios.create({
     baseURL: 'https://www.googleapis.com/books/v1/'

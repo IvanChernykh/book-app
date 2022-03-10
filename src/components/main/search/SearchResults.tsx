@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import BookCard from '../../common/BookCard'
 import PaginationControl from '../../ui/Pagination'
+import Preloader from '../../ui/Preloader'
 
 import { ICurrentSearch, ISearcResults } from '../../../redux/reducers/search/types/searchStateTypes'
 import { TStore } from '../../../redux/store'
@@ -13,9 +14,12 @@ import { getBooksBySearch } from '../../../redux/reducers/search/searchThunks'
 
 
 
+
 type Props = {
+    isFetching: boolean
     searchResults: ISearcResults
     currentSearch: ICurrentSearch | null
+
     getBooksBySearch: (data: ISearchForm, startIndex: number) => void
 }
 
@@ -26,10 +30,14 @@ const styles = {
     pagination: {
         display: 'flex',
         justifyContent: 'center'
+    },
+    hide: {
+        opacity: 0,
+        pointerEvents: 'none'
     }
 }
 
-const SearchResults: React.FC<Props> = ({ searchResults, currentSearch, getBooksBySearch }) => {
+const SearchResults: React.FC<Props> = ({ searchResults, currentSearch, isFetching, getBooksBySearch }) => {
 
     const changeResultPage = (currentPage: number) => {
         const startIndex = (currentPage - 1) * MAX_SEARCH_RESULTS
@@ -44,12 +52,16 @@ const SearchResults: React.FC<Props> = ({ searchResults, currentSearch, getBooks
 
     return (
         <>
-            <Typography variant="h4" sx={styles.title} mb={4}>Результати</Typography>
+            {!isFetching && (
+                <>
+                    <Typography variant="h4" sx={styles.title} mb={4}>Результати</Typography>
 
-            <Grid container spacing={2} mb={4}>
-                {Results}
-            </Grid>
-            <Box sx={styles.pagination}>
+                    <Grid container spacing={2} mb={4}>
+                        {Results}
+                    </Grid>
+                </>
+            )}
+            <Box sx={isFetching ? { ...styles.pagination, ...styles.hide } : styles.pagination}>
                 {searchResults.totalItems > MAX_SEARCH_RESULTS
                     &&
                     (<PaginationControl
@@ -62,6 +74,7 @@ const SearchResults: React.FC<Props> = ({ searchResults, currentSearch, getBooks
     )
 }
 const mapStateToProps = (state: TStore) => ({
-    currentSearch: state.search.currentSearch
+    currentSearch: state.search.currentSearch,
+    isFetching: state.main.isFetching
 })
 export default connect(mapStateToProps, { getBooksBySearch })(SearchResults)
