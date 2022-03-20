@@ -43,11 +43,7 @@ const SearchResults: React.FC<Props> = ({ searchResults, currentSearch, isFetchi
         getBooksBySearch(currentSearch!, startIndex)
     }
 
-    const Results = searchResults?.items.map(item => {
-        return (
-            <BookCard item={item} key={item.id} />
-        )
-    })
+    const Results = searchResults?.items.map(item => <BookCard item={item} key={item.id} />)
 
     return (
         <>
